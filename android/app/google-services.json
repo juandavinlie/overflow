@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "178102139428",
+    "project_id": "overflow-6d0d6",
+    "storage_bucket": "overflow-6d0d6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:178102139428:android:5c12a6b922178d978d36b1",
+        "android_client_info": {
+          "package_name": "com.liebros.overflow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "178102139428-r2i3o2appg8fq0mitoqtf4svgntur3k6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMpA2nqTxbHc2gPtKJXOANKki3eVElHJc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "178102139428-r2i3o2appg8fq0mitoqtf4svgntur3k6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
