@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:overflow/screens/pages/feed.dart';
 import 'package:overflow/screens/pages/personal.dart';
@@ -23,6 +24,7 @@ class _HomeState extends State<Home> {
         actions: <Widget>[FlatButton.icon(
           onPressed: () {
             showModalBottomSheet(
+              isScrollControlled: true,
               context: context, 
               builder: (context) {
                 return NewPost();

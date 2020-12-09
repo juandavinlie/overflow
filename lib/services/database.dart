@@ -9,15 +9,14 @@ class DatabaseService {
 
   // collection reference
   final CollectionReference userCollection = Firestore.instance.collection('users');
-  final CollectionReference postCollection = Firestore.instance.collectionGroup('posts');
+  //final Query postCollection = Firestore.instance.collectionGroup('posts');
 
-  // call when a new user 
+  // call when a new user is registered
   Future updateUser(String username) async {
     return await userCollection.document(uid).setData({
-      'username' : username
+      'username': username
     });
   }
-
 
   // call when a new post is added
   Future updatePost(String post) async {
