@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:overflow/screens/pages/feed.dart';
 import 'package:overflow/screens/pages/personal.dart';
 import 'package:overflow/screens/shared/drawer.dart';
-import 'package:overflow/services/auth.dart';
+import 'package:overflow/screens/shared/new_post.dart';
 
 class Home extends StatefulWidget {
 
@@ -22,7 +22,12 @@ class _HomeState extends State<Home> {
         title: Text("Overflow"),
         actions: <Widget>[FlatButton.icon(
           onPressed: () {
-            print("New Post");
+            showModalBottomSheet(
+              context: context, 
+              builder: (context) {
+                return NewPost();
+              }
+            );
           }, 
           icon: Icon(Icons.add), 
           label: Text("New Post"))

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:overflow/screens/authenticate/register.dart';
 import 'package:overflow/screens/authenticate/sign_in.dart';
 
 class Authenticate extends StatefulWidget {
@@ -7,10 +8,17 @@ class Authenticate extends StatefulWidget {
 }
 
 class _AuthenticateState extends State<Authenticate> {
+
+  bool _isRegistered = true;
+
+  void toggleView() {
+    setState(() {
+      _isRegistered = !_isRegistered;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: SignIn()
-    );
+    return _isRegistered ? SignIn() : Register();
   }
 }
