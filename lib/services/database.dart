@@ -9,7 +9,7 @@ class DatabaseService {
 
   // collection reference
   final CollectionReference userCollection = Firestore.instance.collection('users');
-  //final Query postCollection = Firestore.instance.collectionGroup('posts');
+  final Query postCollection = Firestore.instance.collectionGroup('posts');
 
   // call when a new user is registered
   Future updateUser(String username) async {
@@ -26,6 +26,16 @@ class DatabaseService {
       'content' : post,
       'creator' : uid
     });
+  }
+
+  // get universal posts stream
+  Stream<QuerySnapshot> get universalPosts {
+    return postCollection.snapshots();
+  }
+
+  // get individual posts stream
+  Stream<QuerySnapshot> get individualPosts {
+    return userCollection.document(uid).collection('posts').snapshots();
   }
 
 

@@ -1,4 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:overflow/models/user.dart';
+import 'package:overflow/screens/pages/universal_post_list.dart';
+import 'package:overflow/services/database.dart';
+import 'package:provider/provider.dart';
 
 class Feed extends StatefulWidget {
   @override
@@ -8,8 +13,14 @@ class Feed extends StatefulWidget {
 class _FeedState extends State<Feed> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("Feed")
+
+    final user = Provider.of<User>(context);
+
+    return StreamProvider<QuerySnapshot>.value(
+      value: DatabaseService(uid: user.uid).universalPosts,
+      child: Container(
+        child: UniversalPostList()
+      ),
     );
   }
 }
