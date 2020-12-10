@@ -47,8 +47,8 @@ class _NewPostState extends State<NewPost> {
                     ),
                     controller: controller,
                     autofocus: true,
-                    onEditingComplete: () {
-                      enjoyment = controller.text;
+                    onChanged: (val) {
+                      enjoyment = val;
                     },
                   ),
                 ]
