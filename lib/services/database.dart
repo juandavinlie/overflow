@@ -32,6 +32,12 @@ class DatabaseService {
     });
   }
 
+  // call when a post is deleted
+  Future deletePost(String postId) async {
+    return await userCollection.document(uid)
+      .collection('posts').document(postId).delete();
+  }
+
   // get username of a user from database
   Future getUsername() {
     return userCollection.document(uid).get().then((value) {
@@ -46,9 +52,12 @@ class DatabaseService {
         // await userCollection.document(doc['creator']).get().then((snapshot) {
         //   username = snapshot.data['username'];
         // });  
+        print(doc['creator_username']);
+        print(doc['creator_uid']);
         return Post(
           content: doc['content'], 
-          creator: User(username: doc['creator_username'], uid: doc['creator_uid'])
+          creator: User(username: doc['creator_username'], uid: doc['creator_uid']),
+          postId: doc.documentID
         ); 
       }
     ).toList();
