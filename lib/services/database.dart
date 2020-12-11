@@ -26,7 +26,8 @@ class DatabaseService {
     return await userCollection.document(uid)
       .collection('posts').document(postId).setData({
       'content' : post,
-      'creator' : currentUser.username
+      'creator_username' : currentUser.username,
+      'creator_uid' : uid,
     });
   }
 
