@@ -37,25 +37,26 @@ class _ProfileState extends State<Profile> {
                             ),
                           ),
                           SizedBox(height: 5),
-                          Text(
-                            'Louis Davin Lie',
-                            style: TextStyle(
-                              fontSize: 12,
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.27,
+                            child: Text(
+                              'Louis Davin Lie ',
+                              style: TextStyle(
+                                fontSize: 12,
+                              ),
+                              maxLines: 1,
                             ),
                           ),
                         ],
                       ),
                       SizedBox(width: 20),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(30, 0, 10, 0),
-                        child: RaisedButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/editprofile');
-                          },
-                          child: Text(
-                            'Edit Profile',
-                            style: TextStyle(),
-                          ),
+                      RaisedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/editprofile');
+                        },
+                        child: Text(
+                          'Edit Profile',
+                          style: TextStyle(),
                         ),
                       )
                     ],

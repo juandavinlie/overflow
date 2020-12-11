@@ -21,8 +21,9 @@ class _FeedState extends State<Feed> {
 
     return StreamProvider<List<Post>>.value(
       value: DatabaseService(uid: user.uid).universalPosts,
-      child: Container(
-        child: UniversalPostList()
+      child: Scaffold(
+        backgroundColor: Colors.orange[50],
+        body: UniversalPostList()
       ),
     );
   }

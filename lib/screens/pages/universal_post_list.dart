@@ -14,14 +14,16 @@ class UniversalPostList extends StatefulWidget {
 class _UniversalPostListState extends State<UniversalPostList> {
   @override
   Widget build(BuildContext context) {
-
     final posts = Provider.of<List<Post>>(context);
 
     return ListView.builder(
       scrollDirection: Axis.vertical,
       itemCount: posts.length,
       itemBuilder: (context, index) {
-        return PostCard(post: posts[index], isDeletable: true,);
+        return PostCard(
+          post: posts[index],
+          isDeletable: true,
+        );
       },
     );
   }
