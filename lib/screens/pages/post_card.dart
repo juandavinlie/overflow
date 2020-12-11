@@ -36,7 +36,7 @@ class _PostCardState extends State<PostCard> {
                 ),
                 SizedBox(height: 30),
                 Text(
-                  widget.post.username.substring(0,5),
+                  widget.post.username,
                   style: TextStyle(
                     color: Colors.grey[850],
                     letterSpacing: 2,

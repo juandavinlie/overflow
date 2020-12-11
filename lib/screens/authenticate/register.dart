@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:overflow/screens/shared/constants.dart';
 import 'package:overflow/services/auth.dart';
 
 class Register extends StatefulWidget {

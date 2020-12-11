@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:overflow/models/post.dart';
+import 'package:overflow/screens/shared/constants.dart';
 import 'package:uuid/uuid.dart';
 
 class DatabaseService {
   
   final String uid; 
-  final String username;
 
-  DatabaseService({ this.uid, this.username });
+  DatabaseService({ this.uid });
 
   // collection reference
   final CollectionReference userCollection = Firestore.instance.collection('users');
@@ -26,29 +26,28 @@ class DatabaseService {
     return await userCollection.document(uid)
       .collection('posts').document(postId).setData({
       'content' : post,
-      'creator' : uid
+      'creator' : currentUser.username
+    });
+  }
+
+  // get username of a user from database
+  Future getUsername() {
+    return userCollection.document(uid).get().then((value) {
+      return value.data['username'];
     });
   }
 
   // get universal posts stream
   List<Post> _postListFromQuerySnapshot(QuerySnapshot snapshot) {
-
     return snapshot.documents.map(
       (doc) {
-        // String username = 'hihi';
-        // userCollection.getDocuments().then((snapshot) => {
-        //   snapshot.documents.forEach((document) {
-        //     if (document.documentID == doc['creator']) {
-        //       username = document['username'];
-        //       print(username);
-        //     }
-        //   })
-        // });
-        // print(username + " BELAKANGAN");
+        // await userCollection.document(doc['creator']).get().then((snapshot) {
+        //   username = snapshot.data['username'];
+        // });  
         return Post(
           content: doc['content'], 
           username: doc['creator']
-        );
+        ); 
       }
     ).toList();
   }
