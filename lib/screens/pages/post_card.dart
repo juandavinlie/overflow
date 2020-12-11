@@ -5,7 +5,9 @@ import 'package:overflow/screens/shared/constants.dart';
 class PostCard extends StatefulWidget {
   final Post post;
 
-  PostCard({this.post});
+  bool is_deletable = true;
+
+  PostCard({this.post, this.is_deletable});
 
   @override
   _PostCardState createState() => _PostCardState();
@@ -32,6 +34,12 @@ class _PostCardState extends State<PostCard> {
           children: [
             Row(
               children: [
+                // widget.is_deletable
+                //     ? RaisedButton.icon(
+                //         onPressed: () {},
+                //         icon: Icon(Icons.delete),
+                //       )
+                //     : SizedBox(width: 10),
                 SizedBox(width: 10),
                 CircleAvatar(
                   backgroundImage: AssetImage('assets/squidward.jpg'),
