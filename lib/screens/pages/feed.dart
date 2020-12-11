@@ -1,3 +1,5 @@
+// import 'dart:html/';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:overflow/models/post.dart';
@@ -14,8 +16,8 @@ class Feed extends StatefulWidget {
 class _FeedState extends State<Feed> {
   @override
   Widget build(BuildContext context) {
-
     final user = Provider.of<User>(context);
+
 
     return StreamProvider<List<Post>>.value(
       value: DatabaseService(uid: user.uid).universalPosts,
