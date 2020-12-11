@@ -24,7 +24,7 @@ class _PersonalState extends State<Personal> {
             Profile(),
             Expanded(
               child: UniversalPostList(),
-            )
+            ),
           ],
         ),
       ),

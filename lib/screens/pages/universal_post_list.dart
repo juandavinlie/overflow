@@ -21,7 +21,7 @@ class _UniversalPostListState extends State<UniversalPostList> {
       scrollDirection: Axis.vertical,
       itemCount: posts.length,
       itemBuilder: (context, index) {
-        return PostCard(post: posts[index]);
+        return PostCard(post: posts[index], isDeletable: true,);
       },
     );
   }

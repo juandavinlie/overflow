@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:overflow/models/user.dart';
+import 'package:overflow/screens/pages/edit_profile.dart';
 import 'package:overflow/screens/wrapper.dart';
 import 'package:overflow/services/auth.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +17,11 @@ class MyApp extends StatelessWidget {
     return StreamProvider<User>.value(
       value: AuthService().user, // specifies what stream is being listened to
       child: MaterialApp(
-        home: Wrapper(),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => Wrapper(),
+          '/editprofile': (context) => EditProfile()
+        },
       ),
     );
   }
