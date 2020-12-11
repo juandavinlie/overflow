@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:overflow/screens/shared/constants.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -20,34 +21,34 @@ class _ProfileState extends State<Profile> {
                 backgroundImage: AssetImage('assets/squidward.jpg'),
                 radius: 50,
               ),
-              SizedBox(width: 20),
+              SizedBox(width: 15),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Name',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.27,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Name',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 5),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.27,
-                            child: Text(
-                              'Louis Davin Lie ',
+                            SizedBox(height: 5),
+                            Text(
+                              currentUser.username,
                               style: TextStyle(
                                 fontSize: 12,
                               ),
                               maxLines: 1,
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       SizedBox(width: 20),
                       RaisedButton(
@@ -64,44 +65,49 @@ class _ProfileState extends State<Profile> {
                   SizedBox(height: 20),
                   Row(
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Locality',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.28,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Locality',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 5),
-                          Text(
-                            'Jakarta, Indonesia',
-                            style: TextStyle(
-                              fontSize: 12,
+                            SizedBox(height: 5),
+                            Text(
+                              'Jakarta, Indonesia',
+                              style: TextStyle(
+                                fontSize: 12,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                      SizedBox(width: 20),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Joined Since',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.32,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Joined Since',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 5),
-                          Text(
-                            '11th of December, 2020',
-                            style: TextStyle(
-                              fontSize: 12,
+                            SizedBox(height: 5),
+                            Text(
+                              '11th of December, 2020',
+                              style: TextStyle(
+                                fontSize: 12,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       )
                     ],
                   )

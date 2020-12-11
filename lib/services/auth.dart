@@ -35,7 +35,7 @@ class AuthService {
     try {
       AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: password);
       FirebaseUser user = result.user;
-      if (result != null) {
+      if (user != null) {
         String username = await DatabaseService(uid: user.uid).getUsername();
         currentUser = User(uid: user.uid, username: username);
       }
