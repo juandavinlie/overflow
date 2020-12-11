@@ -42,7 +42,7 @@ class _PostCardState extends State<PostCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.post.username,
+                      widget.post.creator.username,
                       style: TextStyle(
                         color: Colors.grey[850],
                         letterSpacing: 2,
@@ -52,7 +52,7 @@ class _PostCardState extends State<PostCard> {
                     ),
                     SizedBox(height: 5),
                     Text(
-                      widget.post.username,
+                      widget.post.creator.username,
                       style: TextStyle(
                         color: Colors.grey[600],
                         letterSpacing: 2,
