@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:overflow/screens/shared/constants.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -38,7 +39,7 @@ class _ProfileState extends State<Profile> {
                           ),
                           SizedBox(height: 5),
                           Text(
-                            'Louis Davin Lie',
+                            currentUser.username,
                             style: TextStyle(
                               fontSize: 12,
                             ),

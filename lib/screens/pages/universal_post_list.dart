@@ -16,12 +16,13 @@ class _UniversalPostListState extends State<UniversalPostList> {
   Widget build(BuildContext context) {
 
     final posts = Provider.of<List<Post>>(context);
+    final user = Provider.of<User>(context);
 
     return ListView.builder(
       scrollDirection: Axis.vertical,
       itemCount: posts.length,
       itemBuilder: (context, index) {
-        return PostCard(post: posts[index], isDeletable: true,);
+        return PostCard(post: posts[index], isDeletable: posts[index].creator.uid == user.uid);
       },
     );
   }

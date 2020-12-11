@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:overflow/models/post.dart';
 import 'package:overflow/screens/shared/constants.dart';
+import 'package:overflow/services/database.dart';
 
 class PostCard extends StatefulWidget {
   final Post post;
-
   final bool isDeletable;
 
   PostCard({this.post, this.isDeletable});
@@ -83,7 +83,7 @@ class _PostCardState extends State<PostCard> {
                   ],
                 ),
                 Expanded(child: SizedBox()),
-                Delete(showDelete: widget.isDeletable),
+                Delete(showDelete: widget.isDeletable, post: widget.post),
               ],
             ),
             Column(
@@ -115,8 +115,9 @@ class _PostCardState extends State<PostCard> {
 
 class Delete extends StatefulWidget {
   bool showDelete;
+  Post post;
 
-  Delete({this.showDelete});
+  Delete({this.showDelete, this.post});
 
   @override
   _DeleteState createState() => _DeleteState();
@@ -127,7 +128,9 @@ class _DeleteState extends State<Delete> {
   Widget build(BuildContext context) {
     return widget.showDelete
         ? IconButton(
-            onPressed: () {},
+            onPressed: () async {
+              await DatabaseService(uid: widget.post.creator.uid).deletePost(widget.post.postId);
+            },
             icon: Icon(Icons.delete),
             iconSize: 20,
             alignment: Alignment.topRight,
