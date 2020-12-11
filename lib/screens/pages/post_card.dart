@@ -5,7 +5,9 @@ import 'package:overflow/screens/shared/constants.dart';
 class PostCard extends StatefulWidget {
   final Post post;
 
-  PostCard({this.post});
+  final bool isDeletable;
+
+  PostCard({this.post, this.isDeletable});
 
   @override
   _PostCardState createState() => _PostCardState();
@@ -32,43 +34,56 @@ class _PostCardState extends State<PostCard> {
           children: [
             Row(
               children: [
-                SizedBox(width: 10),
-                CircleAvatar(
-                  backgroundImage: AssetImage('assets/squidward.jpg'),
-                  radius: 25,
-                ),
-                SizedBox(width: 15),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      widget.post.creator.username,
-                      style: TextStyle(
-                        color: Colors.grey[850],
-                        letterSpacing: 2,
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    // widget.is_deletable
+                    //     ? RaisedButton.icon(
+                    //         onPressed: () {},
+                    //         icon: Icon(Icons.delete),
+                    //       )
+                    //     : SizedBox(width: 10),
+                    SizedBox(width: 10),
+                    CircleAvatar(
+                      backgroundImage: AssetImage('assets/squidward.jpg'),
+                      radius: 25,
                     ),
-                    SizedBox(height: 5),
-                    Text(
-                      widget.post.creator.username,
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        letterSpacing: 2,
-                        fontSize: 10,
-                      ),
-                    ),
-                    SizedBox(height: 5),
-                    Text(
-                      'Jakarta, Indonesia'.toUpperCase(),
-                      style: TextStyle(
-                        letterSpacing: 2,
-                        fontSize: 6,
-                      ),
+                    SizedBox(width: 15),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.post.creator.username,
+                          style: TextStyle(
+                            color: Colors.grey[850],
+                            letterSpacing: 2,
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 5),
+                        Text(
+                          widget.post.creator.username,
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            letterSpacing: 2,
+                            fontSize: 10,
+                          ),
+                        ),
+                        SizedBox(height: 5),
+                        Text(
+                          'Jakarta, Indonesia'.toUpperCase(),
+                          style: TextStyle(
+                            letterSpacing: 2,
+                            fontSize: 6,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
+                Expanded(child: SizedBox()),
+                Delete(showDelete: widget.isDeletable),
               ],
             ),
             Column(
@@ -95,5 +110,29 @@ class _PostCardState extends State<PostCard> {
         ),
       ),
     );
+  }
+}
+
+class Delete extends StatefulWidget {
+  bool showDelete;
+
+  Delete({this.showDelete});
+
+  @override
+  _DeleteState createState() => _DeleteState();
+}
+
+class _DeleteState extends State<Delete> {
+  @override
+  Widget build(BuildContext context) {
+    return widget.showDelete
+        ? IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.delete),
+            iconSize: 20,
+            alignment: Alignment.topRight,
+            color: Colors.grey[700],
+          )
+        : SizedBox();
   }
 }
