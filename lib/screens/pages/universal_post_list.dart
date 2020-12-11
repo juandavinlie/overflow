@@ -16,6 +16,7 @@ class _UniversalPostListState extends State<UniversalPostList> {
 
     final posts = Provider.of<List<Post>>(context);
       return ListView.builder(
+        scrollDirection: Axis.vertical,
         itemCount: posts.length,
         itemBuilder: (context, index) {
           return PostCard(post: posts[index]);

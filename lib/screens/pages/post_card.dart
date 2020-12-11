@@ -19,6 +19,10 @@ class _PostCardState extends State<PostCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
       margin: EdgeInsets.fromLTRB(15, 15, 15, 0),
       child: Padding(
         padding: EdgeInsets.fromLTRB(7, 12, 7, 10),
@@ -69,9 +73,9 @@ class _PostCardState extends State<PostCard> {
             ),
             Column(
               children: [
-                SizedBox(height: 10),
+                SizedBox(height: 15),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 0, 10,0),
+                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                   child: Container(
                     width: screenWidth(context),
                     child: Text(
