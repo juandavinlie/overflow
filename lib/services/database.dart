@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:overflow/models/post.dart';
+import 'package:overflow/models/user.dart';
 import 'package:overflow/screens/shared/constants.dart';
 import 'package:uuid/uuid.dart';
 
@@ -26,7 +27,8 @@ class DatabaseService {
     return await userCollection.document(uid)
       .collection('posts').document(postId).setData({
       'content' : post,
-      'creator' : currentUser.username
+      'creator_username' : currentUser.username,
+      'creator_uid' : uid,
     });
   }
 
@@ -46,7 +48,7 @@ class DatabaseService {
         // });  
         return Post(
           content: doc['content'], 
-          username: doc['creator']
+          creator: User(username: doc['creator_username'], uid: doc['creator_uid'])
         ); 
       }
     ).toList();

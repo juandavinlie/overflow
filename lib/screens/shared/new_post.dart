@@ -46,7 +46,7 @@ class _NewPostState extends State<NewPost> {
                       contentPadding: EdgeInsets.all(20),
                     ),
                     controller: controller,
-                    autofocus: true,
+                    autofocus: false,
                     onChanged: (val) {
                       enjoyment = val;
                     },

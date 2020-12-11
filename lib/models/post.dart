@@ -1,6 +1,8 @@
+import 'package:overflow/models/user.dart';
+
 class Post {
   String content;
-  String username;
+  User creator;
 
-  Post({ this.content, this.username });
+  Post({ this.content, this.creator});
 }
