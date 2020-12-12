@@ -50,16 +50,23 @@ class _ProfileState extends State<Profile> {
                           ],
                         ),
                       ),
-                      SizedBox(width: 20),
-                      RaisedButton(
+                      IconButton(
+                        icon: Icon(Icons.settings),
                         onPressed: () {
                           Navigator.pushNamed(context, '/editprofile');
                         },
-                        child: Text(
-                          'Edit Profile',
-                          style: TextStyle(),
-                        ),
-                      )
+                        alignment: Alignment.center,
+                        iconSize: 20,
+                      ),
+                      // RaisedButton(
+                      //   onPressed: () {
+                      //     Navigator.pushNamed(context, '/editprofile');
+                      //   },
+                      //   child: Text(
+                      //     'Edit Profile',
+                      //     style: TextStyle(),
+                      //   ),
+                      // )
                     ],
                   ),
                   SizedBox(height: 20),
