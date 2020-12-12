@@ -76,7 +76,7 @@ class _ProfileState extends State<Profile> {
                           ),
                           SizedBox(height: 5),
                           Text(
-                            'Jakarta, Indonesia',
+                            currentUser.state + ", " + currentUser.country.substring(8),
                             style: TextStyle(
                               fontSize: 12,
                             ),

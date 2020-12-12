@@ -37,12 +37,6 @@ class _PostCardState extends State<PostCard> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // widget.is_deletable
-                    //     ? RaisedButton.icon(
-                    //         onPressed: () {},
-                    //         icon: Icon(Icons.delete),
-                    //       )
-                    //     : SizedBox(width: 10),
                     SizedBox(width: 10),
                     CircleAvatar(
                       backgroundImage: AssetImage('assets/squidward.jpg'),
@@ -72,7 +66,7 @@ class _PostCardState extends State<PostCard> {
                         ),
                         SizedBox(height: 5),
                         Text(
-                          'Jakarta, Indonesia'.toUpperCase(),
+                          widget.post.creator.state + ", " + widget.post.creator.country.substring(8),
                           style: TextStyle(
                             letterSpacing: 2,
                             fontSize: 6,
