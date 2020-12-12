@@ -1,3 +1,4 @@
+import 'package:country_state_city_picker/country_state_city_picker.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:overflow/screens/shared/constants.dart';
@@ -22,6 +23,9 @@ class _RegisterState extends State<Register> {
   String password = '';
   String username = '';
   String error = '';
+  String countryValue = '';
+  String stateValue = '';
+  String cityValue = '';
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +62,24 @@ class _RegisterState extends State<Register> {
                   },
                 ),
                 SizedBox(height: 20.0),
+                SelectState(
+                  onCountryChanged: (value) {
+                    setState(() {
+                      countryValue = value;
+                    });
+                  },
+                  onStateChanged:(value) {
+                    setState(() {
+                      stateValue = value;
+                    });
+                  },
+                  onCityChanged:(value) {
+                    setState(() {
+                      cityValue = value;
+                    });
+                  },
+                ),
+                SizedBox(height: 20.0),
                 TextFormField(
                   decoration: InputDecoration(
                     hintText: "Password"
@@ -72,13 +94,17 @@ class _RegisterState extends State<Register> {
                 RaisedButton(
                   child: Text("Register"),
                   onPressed: () async {
-                    if (_formKey.currentState.validate()) {
-                      dynamic result = await _auth.registerWithEmailAndPassword(email, username, password);
+                    if (_formKey.currentState.validate() && cityValue.isNotEmpty) {
+                      dynamic result = await _auth.registerWithEmailAndPassword(email, username, countryValue, stateValue, password);
                       if (result == null) {
                         setState(() {
                           error = "Please supply a valid email";
                         });
                       }
+                    } else {
+                      setState(() {
+                        error = 'Please key in your locality.';
+                      });
                     }
                   },
                 ),

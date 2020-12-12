@@ -63,11 +63,11 @@ class _SignInState extends State<SignIn> {
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
                     dynamic result = await _auth.signInWithEmailAndPassword(email, password);
-                      if (result == null) {
-                        setState(() {
-                          error = "Your account doesn't exist";
-                        });
-                      }
+                    if (result == null) {
+                      setState(() {
+                        error = "Your account doesn't exist";
+                      });
+                    }
                   }
                 },
               ),
@@ -89,6 +89,11 @@ class _SignInState extends State<SignIn> {
                     )
                   ]
                 )
+              ),
+              SizedBox(height: 12.0),
+              Text(
+                error,
+                style: TextStyle(color: Colors.red, fontSize: 14.0)
               )
             ],
           ),

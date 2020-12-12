@@ -15,9 +15,11 @@ class DatabaseService {
   final Query postCollection = Firestore.instance.collectionGroup('posts');
 
   // call when a new user is registered
-  Future updateUser(String username) async {
+  Future updateUser(User user) async {
     return await userCollection.document(uid).setData({
-      'username': username
+      'username': user.username,
+      'country': user.country,
+      'state': user.state
     });
   }
 
@@ -29,6 +31,8 @@ class DatabaseService {
       'content' : post,
       'creator_username' : currentUser.username,
       'creator_uid' : uid,
+      'creator_country' : currentUser.country,
+      'creator_state' : currentUser.state
     });
   }
 
@@ -45,18 +49,29 @@ class DatabaseService {
     });
   }
 
+  // get country of a user from database
+  Future getCountry() {
+    return userCollection.document(uid).get().then((value) {
+      return value.data['country'];
+    });
+  }
+
+  // get state of a user from database
+  Future getState() {
+    return userCollection.document(uid).get().then((value) {
+      return value.data['state'];
+    });
+  }
+
   // get universal posts stream
   List<Post> _postListFromQuerySnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map(
       (doc) {
-        // await userCollection.document(doc['creator']).get().then((snapshot) {
-        //   username = snapshot.data['username'];
-        // });  
         print(doc['creator_username']);
         print(doc['creator_uid']);
         return Post(
           content: doc['content'], 
-          creator: User(username: doc['creator_username'], uid: doc['creator_uid']),
+          creator: User(username: doc['creator_username'], uid: doc['creator_uid'], country: doc['creator_country'], state: doc['creator_state']),
           postId: doc.documentID
         ); 
       }

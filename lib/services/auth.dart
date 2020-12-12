@@ -37,7 +37,9 @@ class AuthService {
       FirebaseUser user = result.user;
       if (user != null) {
         String username = await DatabaseService(uid: user.uid).getUsername();
-        currentUser = User(uid: user.uid, username: username);
+        String country = await DatabaseService(uid: user.uid).getCountry();
+        String state = await DatabaseService(uid: user.uid).getState();
+        currentUser = User(uid: user.uid, username: username, country: country, state: state);
       }
       return _userFromFirebaseUser(user);
     } catch(e) {
@@ -46,14 +48,15 @@ class AuthService {
   }
 
   // register with email & password
-  Future registerWithEmailAndPassword(String email, String username, String password) async {
+  Future registerWithEmailAndPassword(String email, String username, String countryValue, String stateValue, String password) async {
     try {
       AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       FirebaseUser user = result.user;
       if (user != null) {
-        currentUser = User(uid: user.uid, username: username);
+        User thisUser = User(uid: user.uid, username: username, country: countryValue, state: stateValue);
+        currentUser = thisUser;
+        await DatabaseService(uid: user.uid).updateUser(thisUser);
       }
-      await DatabaseService(uid: user.uid).updateUser(username);
       return _userFromFirebaseUser(user);
     } catch(e) {
       print(e.toString());

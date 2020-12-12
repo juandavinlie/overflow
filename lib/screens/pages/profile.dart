@@ -84,13 +84,13 @@ class _ProfileState extends State<Profile> {
                                 fontSize: 16,
                               ),
                             ),
-                            SizedBox(height: 5),
-                            Text(
-                              'Jakarta, Indonesia',
-                              style: TextStyle(
-                                fontSize: 12,
-                              ),
+                          SizedBox(height: 5),
+                          Text(
+                            currentUser.state + ", " + currentUser.country.substring(8),
+                            style: TextStyle(
+                              fontSize: 12,
                             ),
+                          ),
                           ],
                         ),
                       ),
