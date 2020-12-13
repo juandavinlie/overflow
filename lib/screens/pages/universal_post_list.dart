@@ -14,7 +14,6 @@ class UniversalPostList extends StatefulWidget {
 class _UniversalPostListState extends State<UniversalPostList> {
   @override
   Widget build(BuildContext context) {
-
     final posts = Provider.of<List<Post>>(context);
     final user = Provider.of<User>(context);
 

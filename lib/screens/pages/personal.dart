@@ -19,9 +19,16 @@ class _PersonalState extends State<Personal> {
     return StreamProvider<List<Post>>.value(
       value: DatabaseService(uid: user.uid).individualPosts,
       child: Scaffold(
+        backgroundColor: Colors.orange[50],
         body: Column(
           children: [
             Profile(),
+            Divider(
+              height: 0,
+              thickness: 1,
+              indent: 15,
+              endIndent: 15,
+            ),
             Expanded(
               child: UniversalPostList(),
             ),
