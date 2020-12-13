@@ -23,6 +23,12 @@ class _PersonalState extends State<Personal> {
         body: Column(
           children: [
             Profile(),
+            Divider(
+              height: 0,
+              thickness: 1,
+              indent: 15,
+              endIndent: 15,
+            ),
             Expanded(
               child: UniversalPostList(),
             ),
