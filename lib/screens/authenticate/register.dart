@@ -94,7 +94,7 @@ class _RegisterState extends State<Register> {
                 RaisedButton(
                   child: Text("Register"),
                   onPressed: () async {
-                    if (_formKey.currentState.validate() && cityValue.isNotEmpty) {
+                    if (_formKey.currentState.validate() && countryValue.isNotEmpty) {
                       dynamic result = await _auth.registerWithEmailAndPassword(email, username, countryValue, stateValue, password);
                       if (result == null) {
                         setState(() {

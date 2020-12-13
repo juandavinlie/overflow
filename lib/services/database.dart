@@ -67,8 +67,6 @@ class DatabaseService {
   List<Post> _postListFromQuerySnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map(
       (doc) {
-        print(doc['creator_username']);
-        print(doc['creator_uid']);
         return Post(
           content: doc['content'], 
           creator: User(username: doc['creator_username'], uid: doc['creator_uid'], country: doc['creator_country'], state: doc['creator_state']),
