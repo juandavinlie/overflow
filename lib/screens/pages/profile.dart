@@ -103,9 +103,7 @@ class _ProfileState extends State<Profile> {
                                       ),
                                     ),
                                     Text(
-                                      currentUser.state +
-                                          ", " +
-                                          currentUser.country.substring(8),
+                                      currentUser.country,
                                       style: TextStyle(
                                         fontSize: 12,
                                       ),

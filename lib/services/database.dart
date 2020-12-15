@@ -12,7 +12,7 @@ class DatabaseService {
 
   // collection reference
   final CollectionReference userCollection = Firestore.instance.collection('users');
-  final Query postCollection = Firestore.instance.collectionGroup('posts');
+  final Query postCollection = Firestore.instance.collectionGroup('posts').orderBy("time_created", descending: true);
 
   // call when a new user is registered
   Future updateUser(User user) async {
@@ -24,7 +24,7 @@ class DatabaseService {
   }
 
   // call when a new post is added
-  Future updatePost(String post) async {
+  Future updatePost(String post, String time) async {
     String postId = Uuid().v4();
     return await userCollection.document(uid)
       .collection('posts').document(postId).setData({
@@ -32,7 +32,8 @@ class DatabaseService {
       'creator_username' : currentUser.username,
       'creator_uid' : uid,
       'creator_country' : currentUser.country,
-      'creator_state' : currentUser.state
+      'creator_state' : currentUser.state,
+      'time_created' : time
     });
   }
 
@@ -67,8 +68,6 @@ class DatabaseService {
   List<Post> _postListFromQuerySnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map(
       (doc) {
-        print(doc['creator_username']);
-        print(doc['creator_uid']);
         return Post(
           content: doc['content'], 
           creator: User(username: doc['creator_username'], uid: doc['creator_uid'], country: doc['creator_country'], state: doc['creator_state']),

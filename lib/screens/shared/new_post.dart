@@ -59,7 +59,8 @@ class _NewPostState extends State<NewPost> {
             child: Text("Post"),
             onPressed: () async {
               if (controller.text.isNotEmpty) {
-                await DatabaseService(uid: user.uid).updatePost(enjoyment);
+                DateTime time = DateTime.now();
+                await DatabaseService(uid: user.uid).updatePost(enjoyment, time.toString());
                 Navigator.pop(context);
               } else {
                 setState(() {

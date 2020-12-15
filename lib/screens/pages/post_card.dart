@@ -66,7 +66,7 @@ class _PostCardState extends State<PostCard> {
                         ),
                         SizedBox(height: 5),
                         Text(
-                          widget.post.creator.state + ", " + widget.post.creator.country.substring(8),
+                          widget.post.creator.country,
                           style: TextStyle(
                             letterSpacing: 2,
                             fontSize: 6,

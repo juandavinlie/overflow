@@ -17,7 +17,7 @@ class _UniversalPostListState extends State<UniversalPostList> {
     final posts = Provider.of<List<Post>>(context);
     final user = Provider.of<User>(context);
 
-    return ListView.builder(
+    return posts == null ? Loading() : ListView.builder(
       scrollDirection: Axis.vertical,
       itemCount: posts.length,
       itemBuilder: (context, index) {

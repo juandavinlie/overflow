@@ -1,6 +1,7 @@
 import 'package:country_state_city_picker/country_state_city_picker.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_country_picker/flutter_country_picker.dart';
 import 'package:overflow/screens/shared/constants.dart';
 import 'package:overflow/services/auth.dart';
 
@@ -21,7 +22,7 @@ class _RegisterState extends State<Register> {
   String password = '';
   String username = '';
   String error = '';
-  String countryValue = '';
+  Country countryValue;
   String stateValue = '';
   String cityValue = '';
 
@@ -64,24 +65,28 @@ class _RegisterState extends State<Register> {
                       },
                     ),
                     SizedBox(height: 20.0),
-                    SelectState(
-                      onCountryChanged: (value) {
-                        setState(() {
-                          countryValue = value;
-                        });
-                      },
-                      onStateChanged: (value) {
-                        setState(() {
-                          stateValue = value;
-                        });
-                      },
-                      onCityChanged: (value) {
-                        setState(() {
-                          cityValue = value;
-                        });
-                      },
+                    Align(
+                      alignment: Alignment.centerLeft, 
+                      child: Text("Choose your locality")
                     ),
-                    SizedBox(height: 20.0),
+                    SizedBox(height: 5.0),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: CountryPicker(
+                      dense: false,
+                      showFlag: true,  //displays flag, true by default
+                      showDialingCode: false, //displays dialing code, false by default
+                      showName: true, //displays country name, true by default
+                      showCurrency: false, //eg. 'British pound'
+                      showCurrencyISO: false, //eg. 'GBP'
+                      onChanged: (Country country) {
+                        setState(() {
+                          countryValue = country;
+                        });
+                      },
+                      selectedCountry: countryValue,
+                      ),
+                    ),
                     TextFormField(
                       decoration: InputDecoration(hintText: "Password"),
                       validator: (val) => val.length < 6
@@ -97,10 +102,10 @@ class _RegisterState extends State<Register> {
                       child: Text("Register"),
                       onPressed: () async {
                         if (_formKey.currentState.validate() &&
-                            cityValue.isNotEmpty) {
+                            countryValue.toString().isNotEmpty) {
                           dynamic result =
                               await _auth.registerWithEmailAndPassword(email,
-                                  username, countryValue, stateValue, password);
+                                  username, countryValue.name, stateValue, password);
                           if (result == null) {
                             setState(() {
                               error = "Please supply a valid email";

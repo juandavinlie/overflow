@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:overflow/models/post.dart';
 import 'package:overflow/models/user.dart';
 import 'package:overflow/screens/pages/profile.dart';
-import 'package:overflow/screens/pages/universal_post_list.dart';
+import 'package:overflow/screens/pages/post_list.dart';
 import 'package:overflow/services/database.dart';
 import 'package:provider/provider.dart';
 

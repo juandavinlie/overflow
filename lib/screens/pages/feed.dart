@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:overflow/models/post.dart';
 import 'package:overflow/models/user.dart';
-import 'package:overflow/screens/pages/universal_post_list.dart';
+import 'package:overflow/screens/pages/post_list.dart';
 import 'package:overflow/services/database.dart';
 import 'package:provider/provider.dart';
 
