@@ -25,7 +25,7 @@ class _PostCardState extends State<PostCard> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
-      margin: EdgeInsets.fromLTRB(15, 15, 15, 0),
+      margin: EdgeInsets.fromLTRB(15, 12, 15, 0),
       child: Padding(
         padding: EdgeInsets.fromLTRB(7, 12, 7, 10),
         child: Column(
@@ -66,7 +66,7 @@ class _PostCardState extends State<PostCard> {
                         ),
                         SizedBox(height: 5),
                         Text(
-                          widget.post.creator.state + ", " + widget.post.creator.country.substring(8),
+                          widget.post.creator.country,
                           style: TextStyle(
                             letterSpacing: 2,
                             fontSize: 6,
@@ -122,6 +122,8 @@ class _DeleteState extends State<Delete> {
   Widget build(BuildContext context) {
     return widget.showDelete
         ? IconButton(
+          highlightColor: Colors.transparent,
+          splashColor: Colors.transparent,
             onPressed: () async {
               await DatabaseService(uid: widget.post.creator.uid).deletePost(widget.post.postId);
             },
