@@ -35,10 +35,7 @@ class _SignInState extends State<SignIn> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  // border: Border.all(color: Colors.black),
-                  // borderRadius: BorderRadius.all(Radius.circular(20)),
                 ),
-                // margin: EdgeInsets.fromLTRB(20, 150, 20, 175),
                 child: Padding(
                     padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                     child: Center(
@@ -56,9 +53,12 @@ class _SignInState extends State<SignIn> {
                           TextFormField(
                             decoration: InputDecoration(
                               hintText: "Username",
+                              hintStyle: TextStyle(
+                                  color: Colors.black.withOpacity(0.5)),
                               fillColor: Colors.white,
                               border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15)),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
                             ),
                             validator: (val) =>
                                 val.isEmpty ? "Enter an email" : null,
@@ -70,9 +70,12 @@ class _SignInState extends State<SignIn> {
                           TextFormField(
                             decoration: InputDecoration(
                               hintText: "Password",
-                              fillColor: Colors.white,
+                              hintStyle: TextStyle(
+                                color: Colors.black.withOpacity(0.5),
+                              ),
                               border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15)),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
                             ),
                             validator: (val) => val.length < 6
                                 ? "Enter a password of at least 6 characters long"
@@ -116,7 +119,6 @@ class _SignInState extends State<SignIn> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  // borderRadius: BorderRadius.all(Radius.circular(20)),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -151,68 +153,4 @@ class _SignInState extends State<SignIn> {
       ),
     );
   }
-//     Scaffold(
-//         appBar: AppBar(elevation: 0.0, title: Text("Sign in to Overflow")),
-//         body: Container(
-//             padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
-//             child: Form(
-//               key: _formKey,
-//               child: Column(
-//                 children: <Widget>[
-//                   SizedBox(height: 20.0),
-//                   TextFormField(
-//                     decoration: InputDecoration(hintText: "Email"),
-//                     validator: (val) => val.isEmpty ? "Enter an email" : null,
-//                     onChanged: (val) {
-//                       email = val;
-//                     },
-//                   ),
-//                   SizedBox(height: 20.0),
-//                   TextFormField(
-//                     decoration: InputDecoration(hintText: "Password"),
-//                     validator: (val) => val.length < 6
-//                         ? "Enter a password of at least 6 characters long"
-//                         : null,
-//                     obscureText: true,
-//                     onChanged: (val) {
-//                       password = val;
-//                     },
-//                   ),
-//                   SizedBox(height: 20.0),
-//                   RaisedButton(
-//                     child: Text("Sign In"),
-//                     onPressed: () async {
-//                       if (_formKey.currentState.validate()) {
-//                         dynamic result = await _auth.signInWithEmailAndPassword(
-//                             email, password);
-//                         if (result == null) {
-//                           setState(() {
-//                             error = "Your account doesn't exist";
-//                           });
-//                         }
-//                       }
-//                     },
-//                   ),
-//                   SizedBox(height: 20.0),
-  // RichText(
-  //     text: TextSpan(children: <TextSpan>[
-  //   TextSpan(
-  //       text: "Don't have an account? ",
-  //       style: TextStyle(color: Colors.black)),
-  //   TextSpan(
-  //       text: 'Register',
-  //       style: TextStyle(color: Colors.blue),
-  //       recognizer: TapGestureRecognizer()
-  //         ..onTap = () {
-  //           widget.toggleView();
-  //         })
-  // ])),
-//                   SizedBox(height: 12.0),
-//                   Text(error,
-//                       style: TextStyle(color: Colors.red, fontSize: 14.0))
-//                 ],
-//               ),
-//             )));
-//   }
-// }
 }
