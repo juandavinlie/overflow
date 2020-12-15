@@ -39,7 +39,8 @@ class AuthService {
         String username = await DatabaseService(uid: user.uid).getUsername();
         String country = await DatabaseService(uid: user.uid).getCountry();
         String state = await DatabaseService(uid: user.uid).getState();
-        currentUser = User(uid: user.uid, username: username, country: country, state: state);
+        String bio = await DatabaseService(uid: user.uid).getBio();
+        currentUser = User(uid: user.uid, username: username, country: country, state: state, bio: bio);
       }
       return _userFromFirebaseUser(user);
     } catch(e) {
@@ -53,7 +54,7 @@ class AuthService {
       AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       FirebaseUser user = result.user;
       if (user != null) {
-        User thisUser = User(uid: user.uid, username: username, country: countryValue, state: stateValue);
+        User thisUser = User(uid: user.uid, username: username, country: countryValue, state: stateValue, bio: "");
         currentUser = thisUser;
         await DatabaseService(uid: user.uid).updateUser(thisUser);
       }

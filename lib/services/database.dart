@@ -19,7 +19,8 @@ class DatabaseService {
     return await userCollection.document(uid).setData({
       'username': user.username,
       'country': user.country,
-      'state': user.state
+      'state': user.state,
+      'bio': user.bio
     });
   }
 
@@ -35,6 +36,19 @@ class DatabaseService {
       'creator_state' : currentUser.state,
       'time_created' : time
     });
+  }
+
+  void updateUsernameOfPosts(String newUsername) {
+    userCollection.document(uid).collection('posts').getDocuments().then(
+      (snapshot) {
+        snapshot.documents.forEach(
+          (element) {
+            element.reference.updateData({
+              'creator_username': newUsername
+            });
+          });
+      } 
+    );
   }
 
   // call when a post is deleted
@@ -64,6 +78,13 @@ class DatabaseService {
     });
   }
 
+  // get bio of a user from database
+  Future getBio() {
+    return userCollection.document(uid).get().then((value) {
+      return value.data['bio'];
+    });
+  }
+
   // get universal posts stream
   List<Post> _postListFromQuerySnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map(
@@ -71,7 +92,8 @@ class DatabaseService {
         return Post(
           content: doc['content'], 
           creator: User(username: doc['creator_username'], uid: doc['creator_uid'], country: doc['creator_country'], state: doc['creator_state']),
-          postId: doc.documentID
+          postId: doc.documentID,
+          time: doc['time_created']
         ); 
       }
     ).toList();
