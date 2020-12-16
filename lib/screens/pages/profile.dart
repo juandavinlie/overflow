@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:overflow/models/localuser.dart';
+import 'package:overflow/models/user.dart';
 import 'package:overflow/screens/shared/constants.dart';
+import 'package:provider/provider.dart';
 
 class Profile extends StatefulWidget {
+
   @override
   _ProfileState createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
 
-  void refreshProfilePage() {
-    setState(() {
-      
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+
+    final localUser = Provider.of<LocalUser>(context);
+
     return Container(
       margin: EdgeInsets.fromLTRB(15, 10, 15, 0),
       color: Colors.orange[50],
@@ -62,7 +63,7 @@ class _ProfileState extends State<Profile> {
                                       ),
                                     ),
                                     Text(
-                                      currentUser.username,
+                                      localUser.username,
                                       style: TextStyle(
                                         fontSize: 12,
                                       ),
@@ -82,7 +83,12 @@ class _ProfileState extends State<Profile> {
                                   icon: Icon(Icons.settings),
                                   onPressed: () {
                                     Navigator.pushNamed(
-                                        context, '/editprofile');
+                                        context, '/editprofile', arguments: {
+                                          'localUserUid' : localUser.uid,
+                                          'localUserUsername' : localUser.username,
+                                          'localUserBio' : localUser.bio,
+                                          'localUserCountry' : localUser.country
+                                        });
                                   },
                                   alignment: Alignment.center,
                                   iconSize: 20,
@@ -110,7 +116,7 @@ class _ProfileState extends State<Profile> {
                                       ),
                                     ),
                                     Text(
-                                      currentUser.country,
+                                      localUser.country,
                                       style: TextStyle(
                                         fontSize: 12,
                                       ),
@@ -258,7 +264,7 @@ class _ProfileState extends State<Profile> {
           ),
           SizedBox(height: 15),
           Text(
-            currentUser.bio,
+            localUser.bio,
             style: TextStyle(
               fontSize: 12,
             ),

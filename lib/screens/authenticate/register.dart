@@ -105,7 +105,7 @@ class _RegisterState extends State<Register> {
                             countryValue.toString().isNotEmpty) {
                           dynamic result =
                               await _auth.registerWithEmailAndPassword(email,
-                                  username, countryValue.name, stateValue, password);
+                                  username, countryValue.name, password);
                           if (result == null) {
                             setState(() {
                               error = "Please supply a valid email";

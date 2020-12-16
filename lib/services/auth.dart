@@ -40,7 +40,7 @@ class AuthService {
         String country = await DatabaseService(uid: user.uid).getCountry();
         String state = await DatabaseService(uid: user.uid).getState();
         String bio = await DatabaseService(uid: user.uid).getBio();
-        currentUser = User(uid: user.uid, username: username, country: country, state: state, bio: bio);
+        //currentUser = User(uid: user.uid, username: username, country: country, state: state, bio: bio);
       }
       return _userFromFirebaseUser(user);
     } catch(e) {
@@ -49,13 +49,13 @@ class AuthService {
   }
 
   // register with email & password
-  Future registerWithEmailAndPassword(String email, String username, String countryValue, String stateValue, String password) async {
+  Future registerWithEmailAndPassword(String email, String username, String countryValue, String password) async {
     try {
       AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       FirebaseUser user = result.user;
       if (user != null) {
-        User thisUser = User(uid: user.uid, username: username, country: countryValue, state: stateValue, bio: "");
-        currentUser = thisUser;
+        User thisUser = User(uid: user.uid, username: username, country: countryValue, bio: "");
+        //currentUser = thisUser;
         await DatabaseService(uid: user.uid).updateUser(thisUser);
       }
       return _userFromFirebaseUser(user);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:overflow/models/localuser.dart';
 import 'package:overflow/models/post.dart';
 import 'package:overflow/models/user.dart';
 import 'package:overflow/screens/pages/profile.dart';
@@ -30,7 +31,7 @@ class _PersonalState extends State<Personal> {
               endIndent: 15,
             ),
             Expanded(
-              child: UniversalPostList(),
+              child: PostList(),
             ),
           ],
         ),

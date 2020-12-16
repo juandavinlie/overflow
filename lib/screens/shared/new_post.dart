@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:overflow/models/localuser.dart';
 import 'package:overflow/models/user.dart';
 import 'package:overflow/services/auth.dart';
 import 'package:overflow/services/database.dart';
 import 'package:provider/provider.dart';
 
 class NewPost extends StatefulWidget {
+
   @override
   _NewPostState createState() => _NewPostState();
 }
@@ -20,6 +22,7 @@ class _NewPostState extends State<NewPost> {
     
     final _formKey = GlobalKey<FormState>();
     final user = Provider.of<User>(context);
+    final localUser = Provider.of<LocalUser>(context);
     
     String enjoyment = '';
     
@@ -60,7 +63,7 @@ class _NewPostState extends State<NewPost> {
             onPressed: () async {
               if (controller.text.isNotEmpty) {
                 DateTime time = DateTime.now();
-                await DatabaseService(uid: user.uid).updatePost(enjoyment, time.toString());
+                await DatabaseService(uid: user.uid).updatePost(enjoyment, localUser.username, localUser.country, time.toString());
                 Navigator.pop(context);
               } else {
                 setState(() {
