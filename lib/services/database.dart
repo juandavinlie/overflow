@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:overflow/models/localuser.dart';
 import 'package:overflow/models/post.dart';
 import 'package:overflow/models/user.dart';
 import 'package:overflow/screens/shared/constants.dart';
@@ -19,22 +20,34 @@ class DatabaseService {
     return await userCollection.document(uid).setData({
       'username': user.username,
       'country': user.country,
-      'state': user.state
+      'bio': user.bio
     });
   }
 
   // call when a new post is added
-  Future updatePost(String post, String time) async {
+  Future updatePost(String content, String username, String country, String time) async {
     String postId = Uuid().v4();
     return await userCollection.document(uid)
       .collection('posts').document(postId).setData({
-      'content' : post,
-      'creator_username' : currentUser.username,
+      'content' : content,
+      'creator_username' : username,
       'creator_uid' : uid,
-      'creator_country' : currentUser.country,
-      'creator_state' : currentUser.state,
+      'creator_country' : country,
       'time_created' : time
     });
+  }
+
+  void updateUsernameOfPosts(String newUsername) {
+    userCollection.document(uid).collection('posts').getDocuments().then(
+      (snapshot) {
+        snapshot.documents.forEach(
+          (element) {
+            element.reference.updateData({
+              'creator_username': newUsername
+            });
+          });
+      } 
+    );
   }
 
   // call when a post is deleted
@@ -64,20 +77,34 @@ class DatabaseService {
     });
   }
 
-  // get universal posts stream
+  // get bio of a user from database
+  Future getBio() {
+    return userCollection.document(uid).get().then((value) {
+      return value.data['bio'];
+    });
+  }
+
   List<Post> _postListFromQuerySnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map(
       (doc) {
         return Post(
           content: doc['content'], 
-          creator: User(username: doc['creator_username'], uid: doc['creator_uid'], country: doc['creator_country'], state: doc['creator_state']),
-          postId: doc.documentID
+          creator: User(username: doc['creator_username'], uid: doc['creator_uid'], country: doc['creator_country']),
+          postId: doc.documentID,
+          time: doc['time_created']
         ); 
       }
     ).toList();
   }
 
+  LocalUser _localUserFromDocumentSnapshot(DocumentSnapshot snapshot) {
+    String username = snapshot.data['username'];
+    String country = snapshot.data['country'];
+    String bio = snapshot.data['bio'];
+    return LocalUser(uid: uid, username: username, country: country, bio: bio);
+  }
 
+  // get universal posts stream
   Stream<List<Post>> get universalPosts {
     return postCollection.snapshots().map(_postListFromQuerySnapshot);
   }
@@ -85,6 +112,10 @@ class DatabaseService {
   // get individual posts stream
   Stream<List<Post>> get individualPosts {
     return userCollection.document(uid).collection('posts').snapshots().map(_postListFromQuerySnapshot);
+  }
+
+  Stream<LocalUser> get localUser {
+    return userCollection.document(uid).snapshots().map(_localUserFromDocumentSnapshot);
   }
 
 

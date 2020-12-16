@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:overflow/models/localuser.dart';
+import 'package:overflow/models/user.dart';
 import 'package:overflow/screens/shared/constants.dart';
+import 'package:provider/provider.dart';
 
 class Profile extends StatefulWidget {
+
   @override
   _ProfileState createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
+
   @override
   Widget build(BuildContext context) {
+
+    final localUser = Provider.of<LocalUser>(context);
+
     return Container(
       margin: EdgeInsets.fromLTRB(15, 10, 15, 0),
       color: Colors.orange[50],
@@ -48,14 +56,14 @@ class _ProfileState extends State<Profile> {
                                       CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Name',
+                                      'Username',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 16,
                                       ),
                                     ),
                                     Text(
-                                      currentUser.username,
+                                      localUser.username,
                                       style: TextStyle(
                                         fontSize: 12,
                                       ),
@@ -75,7 +83,12 @@ class _ProfileState extends State<Profile> {
                                   icon: Icon(Icons.settings),
                                   onPressed: () {
                                     Navigator.pushNamed(
-                                        context, '/editprofile');
+                                        context, '/editprofile', arguments: {
+                                          'localUserUid' : localUser.uid,
+                                          'localUserUsername' : localUser.username,
+                                          'localUserBio' : localUser.bio,
+                                          'localUserCountry' : localUser.country
+                                        });
                                   },
                                   alignment: Alignment.center,
                                   iconSize: 20,
@@ -103,7 +116,7 @@ class _ProfileState extends State<Profile> {
                                       ),
                                     ),
                                     Text(
-                                      currentUser.country,
+                                      localUser.country,
                                       style: TextStyle(
                                         fontSize: 12,
                                       ),
@@ -251,15 +264,7 @@ class _ProfileState extends State<Profile> {
           ),
           SizedBox(height: 15),
           Text(
-            'Bio',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
-          SizedBox(height: 5),
-          Text(
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+            localUser.bio,
             style: TextStyle(
               fontSize: 12,
             ),

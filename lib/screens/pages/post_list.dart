@@ -6,12 +6,12 @@ import 'package:overflow/screens/pages/post_card.dart';
 import 'package:overflow/screens/shared/loading.dart';
 import 'package:provider/provider.dart';
 
-class UniversalPostList extends StatefulWidget {
+class PostList extends StatefulWidget {
   @override
-  _UniversalPostListState createState() => _UniversalPostListState();
+  _PostListState createState() => _PostListState();
 }
 
-class _UniversalPostListState extends State<UniversalPostList> {
+class _PostListState extends State<PostList> {
   @override
   Widget build(BuildContext context) {
     final posts = Provider.of<List<Post>>(context);

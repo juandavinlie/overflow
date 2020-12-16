@@ -4,6 +4,7 @@ class Post {
   String content;
   User creator;
   String postId;
+  String time;
 
-  Post({ this.content, this.creator, this.postId});
+  Post({ this.content, this.creator, this.postId, this.time});
 }

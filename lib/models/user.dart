@@ -1,8 +1,8 @@
 class User {
   final String uid;
-  final String username;
-  final String country;
-  final String state;
+  String username;
+  String country;
+  String bio;
 
-  User({ this.uid, this.username, this.country, this.state });
-}
+  User({ this.uid, this.username, this.country, this.bio });
+} 

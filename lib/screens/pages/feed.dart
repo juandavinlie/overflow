@@ -18,12 +18,11 @@ class _FeedState extends State<Feed> {
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
 
-
     return StreamProvider<List<Post>>.value(
       value: DatabaseService(uid: user.uid).universalPosts,
       child: Scaffold(
         backgroundColor: Colors.orange[50],
-        body: UniversalPostList()
+        body: PostList()
       ),
     );
   }
