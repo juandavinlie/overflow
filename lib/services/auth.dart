@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:overflow/models/user.dart';
-import 'package:overflow/screens/shared/constants.dart';
 import 'package:overflow/services/database.dart';
 
 class AuthService {

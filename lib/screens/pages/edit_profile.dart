@@ -43,6 +43,7 @@ class _EditProfileState extends State<EditProfile> {
               onChanged: (val) {
                 newUsername = val;
               },
+              maxLength: 50,
             ),
             Text("Bio"),
             TextFormField(
@@ -50,10 +51,9 @@ class _EditProfileState extends State<EditProfile> {
               onChanged: (val) {
                 newBio = val;
               },
+              maxLength: 150,
             ),
             RaisedButton(child: Text("Change"), onPressed: () async {
-              //currentUser.setUsername(newUsername);
-              //currentUser.setBio(newBio);
               await DatabaseService(uid: data['localUserUid']).updateUser(User(
                 uid: data['localUserUid'], 
                 username: newUsername,
