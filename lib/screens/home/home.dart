@@ -29,11 +29,6 @@ class _HomeState extends State<Home> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(15),
-            ),
-          ),
           backgroundColor: Colors.orange[100],
           elevation: 0,
           title: Text("Overflow"),
