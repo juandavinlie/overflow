@@ -17,24 +17,52 @@ class _PersonalState extends State<Personal> {
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
 
-    return StreamProvider<List<Post>>.value(
-      value: DatabaseService(uid: user.uid).individualPosts,
-      child: Scaffold(
-        backgroundColor: Colors.orange[50],
-        body: Column(
-          children: [
-            Profile(),
-            Divider(
-              height: 0,
-              thickness: 1,
-              indent: 15,
-              endIndent: 15,
+    return Scaffold(
+      backgroundColor: Colors.orange[50],
+      body: Column(
+        children: [
+          Profile(),
+          Divider(
+            height: 0,
+            thickness: 1,
+            indent: 15,
+            endIndent: 15,
+          ),
+          Expanded(
+            child: DefaultTabController(
+              length: 2,
+              child: Scaffold(
+                  appBar: PreferredSize(
+                    preferredSize: Size.fromHeight(50),
+                    child: AppBar(
+                      backgroundColor: Colors.orange[50],
+                      bottom: TabBar(
+                        tabs: <Widget>[
+                          Tab(
+                            icon: Icon(Icons.message, color: Colors.black,),
+                          ),
+                          Tab(
+                            icon: Icon(Icons.favorite, color: Colors.red)
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  body: TabBarView(
+                    children: <Widget>[
+                      StreamProvider<List<Post>>.value(
+                        value: DatabaseService(uid: user.uid).individualPosts,
+                        child: PostList()
+                      ), 
+                      StreamProvider<List<Post>>.value(
+                        value: DatabaseService(uid: user.uid).likes,
+                        child: PostList()
+                      ), 
+                    ],
+                  )),
             ),
-            Expanded(
-              child: PostList(),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
