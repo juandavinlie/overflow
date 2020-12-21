@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:overflow/models/localuser.dart';
 import 'package:overflow/models/user.dart';
+import 'package:overflow/screens/pages/edit_profile.dart';
 import 'package:overflow/screens/shared/constants.dart';
 import 'package:provider/provider.dart';
+import 'package:page_transition/page_transition.dart';
 
 class Profile extends StatefulWidget {
-
   @override
   _ProfileState createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
-
   @override
   Widget build(BuildContext context) {
-
     final localUser = Provider.of<LocalUser>(context);
 
     return Container(
       margin: EdgeInsets.fromLTRB(15, 10, 15, 0),
-      color: Colors.orange[50],
+      color: Colors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -52,8 +51,7 @@ class _ProfileState extends State<Profile> {
                               flex: 1,
                               child: Container(
                                 child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       'Username',
@@ -83,12 +81,15 @@ class _ProfileState extends State<Profile> {
                                   icon: Icon(Icons.settings),
                                   onPressed: () {
                                     Navigator.pushNamed(
-                                        context, '/editprofile', arguments: {
-                                          'localUserUid' : localUser.uid,
-                                          'localUserUsername' : localUser.username,
-                                          'localUserBio' : localUser.bio,
-                                          'localUserCountry' : localUser.country
-                                        });
+                                      context,
+                                      '/editprofile',
+                                      arguments: {
+                                        'localUserUid': localUser.uid,
+                                        'localUserUsername': localUser.username,
+                                        'localUserBio': localUser.bio,
+                                        'localUserCountry': localUser.country
+                                      },
+                                    );
                                   },
                                   alignment: Alignment.center,
                                   iconSize: 20,
@@ -105,8 +106,7 @@ class _ProfileState extends State<Profile> {
                               flex: 1,
                               child: Container(
                                 child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       'Locality',
@@ -129,8 +129,7 @@ class _ProfileState extends State<Profile> {
                               flex: 1,
                               child: Container(
                                 child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       'Joined Since',
@@ -160,7 +159,7 @@ class _ProfileState extends State<Profile> {
           ),
           SizedBox(height: 15),
           Text(
-            localUser.bio,
+            localUser.bio, 
             style: TextStyle(
               fontSize: 12,
             ),

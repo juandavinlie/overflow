@@ -27,11 +27,11 @@ class _HomeState extends State<Home> {
     return StreamProvider<LocalUser>.value(
       value: DatabaseService(uid: user.uid).localUser,
       child: Scaffold(
-        backgroundColor: Colors.orange[50],
+        backgroundColor: Colors.white,
         appBar: AppBar(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(20),
+              bottom: Radius.circular(15),
             ),
           ),
           backgroundColor: Colors.orange[100],

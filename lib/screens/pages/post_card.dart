@@ -20,14 +20,14 @@ class _PostCardState extends State<PostCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      margin: EdgeInsets.fromLTRB(15, 12, 15, 0),
+    return Container(
+      margin: EdgeInsets.fromLTRB(5, 7, 5, 0),
+      // shape: RoundedRectangleBorder(
+      //   borderRadius: BorderRadius.circular(10),
+      // ),
+      // margin: EdgeInsets.fromLTRB(15, 12, 15, 0),
       child: Padding(
-        padding: EdgeInsets.fromLTRB(7, 12, 7, 10),
+        padding: EdgeInsets.fromLTRB(7, 5, 7, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -99,7 +99,13 @@ class _PostCardState extends State<PostCard> {
                   ),
                 ),
               ],
-            )
+            ),
+            SizedBox(height: 10),
+            Divider(
+              thickness: 1,
+              indent: 20,
+              endIndent: 20,
+            ),
           ],
         ),
       ),
