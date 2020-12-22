@@ -5,6 +5,7 @@ class Post {
   User creator;
   String postId;
   String time;
+  bool liked;
 
-  Post({ this.content, this.creator, this.postId, this.time});
+  Post({ this.content, this.creator, this.postId, this.time, this.liked});
 }

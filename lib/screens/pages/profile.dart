@@ -159,7 +159,14 @@ class _ProfileState extends State<Profile> {
           ),
           SizedBox(height: 15),
           Text(
-            localUser.bio, 
+            'Bio',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
+          Text(
+            localUser.bio,
             style: TextStyle(
               fontSize: 12,
             ),

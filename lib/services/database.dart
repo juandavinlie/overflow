@@ -33,8 +33,23 @@ class DatabaseService {
       'creator_username' : username,
       'creator_uid' : uid,
       'creator_country' : country,
-      'time_created' : time
+      'time_created' : time,
+      'liked_by': []
     });
+  }
+
+  Future addLikedBy(String postId, String likerId) async {
+    return await userCollection.document(uid)
+      .collection('posts').document(postId).updateData({
+        'liked_by': FieldValue.arrayUnion([likerId])
+      });
+  }
+
+  Future removeLikedBy(String postId, String likerId) async {
+    return await userCollection.document(uid)
+      .collection('posts').document(postId).updateData({
+        'liked_by': FieldValue.arrayRemove([likerId])
+      });
   }
 
   void updateUsernameOfPosts(String newUsername) {
@@ -87,12 +102,24 @@ class DatabaseService {
   List<Post> _postListFromQuerySnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map(
       (doc) {
-        return Post(
-          content: doc['content'], 
-          creator: User(username: doc['creator_username'], uid: doc['creator_uid'], country: doc['creator_country']),
-          postId: doc.documentID,
-          time: doc['time_created']
-        ); 
+        try {
+          return Post(
+            content: doc['content'], 
+            creator: User(username: doc['creator_username'], uid: doc['creator_uid'], country: doc['creator_country']),
+            postId: doc.documentID,
+            time: doc['time_created'],
+            liked: doc['liked_by'].contains(uid)
+          ); 
+        } catch(e) {
+          return Post(
+            content: doc['content'], 
+            creator: User(username: doc['creator_username'], uid: doc['creator_uid'], country: doc['creator_country']),
+            postId: doc.documentID,
+            time: doc['time_created'],
+            liked: false
+          ); 
+        }
+        
       }
     ).toList();
   }
@@ -102,6 +129,10 @@ class DatabaseService {
     String country = snapshot.data['country'];
     String bio = snapshot.data['bio'];
     return LocalUser(uid: uid, username: username, country: country, bio: bio);
+  }
+
+  Stream<List<Post>> get likes {
+    return postCollection.where('liked_by', arrayContains: uid).snapshots().map(_postListFromQuerySnapshot);
   }
 
   // get universal posts stream
