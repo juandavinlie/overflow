@@ -127,7 +127,7 @@ class DatabaseService {
   LocalUser _localUserFromDocumentSnapshot(DocumentSnapshot snapshot) {
     String username = snapshot.data['username'];
     String country = snapshot.data['country'];
-    String bio = snapshot.data['bio'];
+    String bio = snapshot.data['bio'] ?? "";
     return LocalUser(uid: uid, username: username, country: country, bio: bio);
   }
 
