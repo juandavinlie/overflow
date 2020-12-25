@@ -24,5 +24,6 @@ class _PostListState extends State<PostList> {
         return PostCard(post: posts[index], isDeletable: posts[index].creator.uid == user.uid);
       },
     );
+    
   }
 }

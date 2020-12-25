@@ -18,48 +18,67 @@ class _PersonalState extends State<Personal> {
     final user = Provider.of<User>(context);
 
     return Scaffold(
-      backgroundColor: Colors.orange[50],
-      body: Column(
+      backgroundColor: Colors.white,
+      body:
+          // CustomScrollView(
+          //   slivers: [
+          //     SliverAppBar(
+          //       backgroundColor: Colors.white,
+          //       expandedHeight: 250,
+          //       floating: false,
+          //       flexibleSpace: FlexibleSpaceBar(background: Profile(),),
+          //     ),
+          //     SliverList(
+          //       delegate: SliverChildBuilderDelegate(
+          //         (context, index) {
+          //           return Container(
+          //             height: 50,
+          //             color: Colors.orange[100 * (index % 7)],
+          //             child: Text('orange $index'),
+          //           );
+          //         },
+          //         childCount: 30,
+          //       ),
+          //     )
+          //   ],
+          // )
+
+          Column(
         children: [
           Profile(),
-          Divider(
-            height: 0,
-            thickness: 1,
-            indent: 15,
-            endIndent: 15,
-          ),
           Expanded(
             child: DefaultTabController(
               length: 2,
               child: Scaffold(
-                  appBar: PreferredSize(
-                    preferredSize: Size.fromHeight(50),
-                    child: AppBar(
-                      backgroundColor: Colors.orange[50],
-                      bottom: TabBar(
-                        tabs: <Widget>[
-                          Tab(
-                            icon: Icon(Icons.message, color: Colors.black,),
+                appBar: PreferredSize(
+                  preferredSize: Size.fromHeight(50),
+                  child: AppBar(
+                    elevation: 2,
+                    backgroundColor: Colors.white,
+                    bottom: TabBar(
+                      tabs: <Widget>[
+                        Tab(
+                          icon: Icon(
+                            Icons.message,
+                            color: Colors.black,
                           ),
-                          Tab(
-                            icon: Icon(Icons.favorite, color: Colors.red)
-                          )
-                        ],
-                      ),
+                        ),
+                        Tab(icon: Icon(Icons.favorite, color: Colors.red))
+                      ],
                     ),
                   ),
-                  body: TabBarView(
-                    children: <Widget>[
-                      StreamProvider<List<Post>>.value(
+                ),
+                body: TabBarView(
+                  children: <Widget>[
+                    StreamProvider<List<Post>>.value(
                         value: DatabaseService(uid: user.uid).individualPosts,
-                        child: PostList()
-                      ), 
-                      StreamProvider<List<Post>>.value(
+                        child: PostList()),
+                    StreamProvider<List<Post>>.value(
                         value: DatabaseService(uid: user.uid).likes,
-                        child: PostList()
-                      ), 
-                    ],
-                  )),
+                        child: PostList()),
+                  ],
+                ),
+              ),
             ),
           ),
         ],
