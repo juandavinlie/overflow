@@ -143,6 +143,7 @@ class _RegisterState extends State<Register> {
                                 ),
                               ),
                             ),
+                            SizedBox(height: 20),
                             RaisedButton(
                               child: Text("Register"),
                               onPressed: () async {
