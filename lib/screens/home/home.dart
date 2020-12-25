@@ -9,6 +9,7 @@ import 'package:overflow/screens/shared/new_post.dart';
 import 'package:overflow/services/database.dart';
 import 'package:provider/provider.dart';
 import 'package:overflow/screens/pages/pursue.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -31,7 +32,10 @@ class _HomeState extends State<Home> {
           appBar: AppBar(
             backgroundColor: Colors.orange[100],
             elevation: 0,
-            title: Text("Overflow"),
+            title: Text("Overflow", style: GoogleFonts.lato(
+              fontWeight: FontWeight.bold,
+              fontSize: 30
+            ),),
           ),
           drawer: DrawerCustom(),
           body: _pages[_selectedIndex],

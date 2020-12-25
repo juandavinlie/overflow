@@ -53,7 +53,7 @@ class _ProfileState extends State<Profile> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Username',
+                                      'Name',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 16,
@@ -157,13 +157,6 @@ class _ProfileState extends State<Profile> {
             ),
           ),
           SizedBox(height: 15),
-          Text(
-            'Bio',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
           Text(
             localUser.bio,
             style: TextStyle(

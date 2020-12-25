@@ -52,7 +52,7 @@ class _SignInState extends State<SignIn> {
                           SizedBox(height: 20.0),
                           TextFormField(
                             decoration: InputDecoration(
-                              hintText: "Username",
+                              hintText: "Email",
                               hintStyle: TextStyle(
                                   color: Colors.black.withOpacity(0.5)),
                               fillColor: Colors.white,

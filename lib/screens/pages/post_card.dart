@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:overflow/models/post.dart';
 import 'package:overflow/models/user.dart';
 import 'package:overflow/screens/shared/constants.dart';
@@ -49,7 +50,7 @@ class _PostCardState extends State<PostCard> {
                           children: [
                             Text(
                               widget.post.creator.username,
-                              style: TextStyle(
+                              style: GoogleFonts.lato(
                                 color: Colors.grey[850],
                                 letterSpacing: 2,
                                 fontSize: 13,
@@ -59,7 +60,7 @@ class _PostCardState extends State<PostCard> {
                             SizedBox(height: 5),
                             Text(
                               widget.post.time.substring(0, 16),
-                              style: TextStyle(
+                              style: GoogleFonts.lato(
                                 color: Colors.grey[600],
                                 letterSpacing: 2,
                                 fontSize: 10,
@@ -68,9 +69,9 @@ class _PostCardState extends State<PostCard> {
                             SizedBox(height: 5),
                             Text(
                               widget.post.creator.country,
-                              style: TextStyle(
+                              style: GoogleFonts.lato(
                                 letterSpacing: 2,
-                                fontSize: 6,
+                                fontSize: 10,
                               ),
                             ),
                           ],
@@ -93,7 +94,7 @@ class _PostCardState extends State<PostCard> {
                         width: size.width,
                         child: Text(
                           widget.post.content,
-                          style: TextStyle(
+                          style: GoogleFonts.lato(
                             fontSize: 15,
                             height: 1.2,
                           ),

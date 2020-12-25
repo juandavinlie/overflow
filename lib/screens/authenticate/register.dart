@@ -75,7 +75,7 @@ class _RegisterState extends State<Register> {
                             SizedBox(height: 20.0),
                             TextFormField(
                               decoration: InputDecoration(
-                                hintText: "Username",
+                                hintText: "Full Name",
                                 hintStyle: TextStyle(
                                   color: Colors.black.withOpacity(0.5),
                                 ),
@@ -84,7 +84,7 @@ class _RegisterState extends State<Register> {
                                 ),
                               ),
                               validator: (val) =>
-                                  val.isEmpty ? "Enter a username" : null,
+                                  val.isEmpty ? "Enter your full name" : null,
                               onChanged: (val) {
                                 username = val;
                               },

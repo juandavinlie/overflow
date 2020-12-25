@@ -36,6 +36,11 @@ dependencies:
   country_state_city_picker: ^1.2.4
   flutter_country_picker: ^0.1.6
   page_transition: ^1.1.7+3
+  firebase_storage: 
+  firebase_core: 
+  image_cropper: 1.0.2
+  image_picker: 0.6.0+17
+  google_fonts: ^1.1.1
 
 dev_dependencies:
   flutter_test:

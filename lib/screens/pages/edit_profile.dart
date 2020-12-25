@@ -37,7 +37,7 @@ class _EditProfileState extends State<EditProfile> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text("Username"),
+            Text("Full Name"),
             TextFormField(
               initialValue: newUsername,
               onChanged: (val) {
