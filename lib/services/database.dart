@@ -25,7 +25,7 @@ class DatabaseService {
   }
 
   // call when a new post is added
-  Future updatePost(String content, String username, String country, String time) async {
+  Future updatePost(String content, String username, String country, int time) async {
     String postId = Uuid().v4();
     return await userCollection.document(uid)
       .collection('posts').document(postId).setData({
@@ -107,7 +107,7 @@ class DatabaseService {
             content: doc['content'], 
             creator: User(username: doc['creator_username'], uid: doc['creator_uid'], country: doc['creator_country']),
             postId: doc.documentID,
-            time: doc['time_created'],
+            time: DateTime.fromMillisecondsSinceEpoch(doc['time_created']).toLocal(),
             liked: doc['liked_by'].contains(uid)
           ); 
         } catch(e) {
@@ -115,7 +115,7 @@ class DatabaseService {
             content: doc['content'], 
             creator: User(username: doc['creator_username'], uid: doc['creator_uid'], country: doc['creator_country']),
             postId: doc.documentID,
-            time: doc['time_created'],
+            time: DateTime.fromMillisecondsSinceEpoch(doc['time_created']).toLocal(),
             liked: false
           ); 
         }

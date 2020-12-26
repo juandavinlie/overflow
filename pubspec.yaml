@@ -41,6 +41,8 @@ dependencies:
   image_cropper: 1.0.2
   image_picker: 0.6.0+17
   google_fonts: ^1.1.1
+  intl: ^0.16.1
+  time_machine:
 
 dev_dependencies:
   flutter_test:

@@ -59,7 +59,7 @@ class _PostCardState extends State<PostCard> {
                             ),
                             SizedBox(height: 5),
                             Text(
-                              widget.post.time.substring(0, 16),
+                              widget.post.time.toString(),
                               style: GoogleFonts.lato(
                                 color: Colors.grey[600],
                                 letterSpacing: 2,

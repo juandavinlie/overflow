@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:overflow/models/localuser.dart';
 import 'package:overflow/models/user.dart';
 import 'package:overflow/services/auth.dart';
@@ -62,8 +64,11 @@ class _NewPostState extends State<NewPost> {
             child: Text("Post"),
             onPressed: () async {
               if (controller.text.isNotEmpty) {
-                DateTime time = DateTime.now();
-                await DatabaseService(uid: user.uid).updatePost(enjoyment, localUser.username, localUser.country, time.toString());
+                int millisecondsSinceEpoch = DateTime.now().millisecondsSinceEpoch;
+                // print(localTime.toString());
+                // DateTime utcTime = DateTime.utc(localTime.year, localTime.month, localTime.day, localTime.hour, localTime.minute, localTime.second, localTime.millisecond, localTime.microsecond);
+                // print(utcTime.toString());
+                await DatabaseService(uid: user.uid).updatePost(enjoyment, localUser.username, localUser.country, millisecondsSinceEpoch);
                 Navigator.pop(context);
               } else {
                 setState(() {

@@ -86,7 +86,7 @@ class _RegisterState extends State<Register> {
                               validator: (val) =>
                                   val.isEmpty ? "Enter your full name" : null,
                               onChanged: (val) {
-                                username = val;
+                                username = val.split(" ").map((str) => '${str[0].toUpperCase()}${str.substring(1)}').join(" ");
                               },
                             ),
                             SizedBox(height: 20.0),
