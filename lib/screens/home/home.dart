@@ -30,7 +30,7 @@ class _HomeState extends State<Home> {
         child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
-            backgroundColor: Colors.orange[100],
+            backgroundColor: Colors.blue[500],
             elevation: 0,
             title: Text("Overflow", style: GoogleFonts.lato(
               fontWeight: FontWeight.bold,
@@ -64,7 +64,7 @@ class _HomeState extends State<Home> {
               });
             },
             currentIndex: _selectedIndex,
-            selectedItemColor: Colors.amber[800],
+            selectedItemColor: Colors.blue[500],
           ),
         ));
   }
