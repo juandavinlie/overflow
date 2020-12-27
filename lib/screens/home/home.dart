@@ -32,9 +32,10 @@ class _HomeState extends State<Home> {
           appBar: AppBar(
             backgroundColor: Colors.blue[500],
             elevation: 0,
+            centerTitle: true,
             title: Text("Overflow", style: GoogleFonts.lato(
               fontWeight: FontWeight.bold,
-              fontSize: 30
+              fontSize: 30,
             ),),
           ),
           drawer: DrawerCustom(),
