@@ -54,13 +54,14 @@ class _EditProfileState extends State<EditProfile> {
               maxLength: 150,
             ),
             RaisedButton(child: Text("Change"), onPressed: () async {
+              String parsedName = newUsername.split(" ").map((str) => '${str[0].toUpperCase()}${str.substring(1)}').join(" ");
               await DatabaseService(uid: data['localUserUid']).updateUser(User(
                 uid: data['localUserUid'], 
-                username: newUsername,
+                username: parsedName,
                 country: data['localUserCountry'],
                 bio: newBio)
               );
-              DatabaseService(uid: data['localUserUid']).updateUsernameOfPosts(newUsername);
+              DatabaseService(uid: data['localUserUid']).updateUsernameOfPosts(parsedName);
               Navigator.pop(context);
             },),
           ],

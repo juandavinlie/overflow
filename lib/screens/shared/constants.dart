@@ -1,3 +1,5 @@
 import 'package:overflow/models/user.dart';
 
-//User currentUser;
+int lastLoadedPostTime;
+int firstLoadedPostTime;
+int numberOfLoadedPosts;

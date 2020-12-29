@@ -136,8 +136,20 @@ class DatabaseService {
   }
 
   // get universal posts stream
-  Stream<List<Post>> get universalPosts {
-    return postCollection.snapshots().map(_postListFromQuerySnapshot);
+
+  Stream<List<Post>> universalPostsFromStart(int limit) {
+    Stream<List<Post>> stream =  postCollection.limit(limit).snapshots().map(_postListFromQuerySnapshot);
+    return stream;
+  }
+
+  Stream<List<Post>> universalPostsFromStartToLastLoadedPost(int timeCreated) {
+    Stream<List<Post>> stream =  postCollection.endAt([timeCreated]).snapshots().map(_postListFromQuerySnapshot);
+    return stream;
+  }
+
+  Stream<List<Post>> nextUniversalPostsWithoutNew(int timeCreated, int limit) {
+    Stream<List<Post>> stream =  postCollection.startAt([timeCreated]).limit(limit).snapshots().map(_postListFromQuerySnapshot);
+    return stream;
   }
 
   // get individual posts stream
