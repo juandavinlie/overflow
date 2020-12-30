@@ -86,7 +86,7 @@ class _RegisterState extends State<Register> {
                               validator: (val) =>
                                   val.isEmpty ? "Enter your full name" : null,
                               onChanged: (val) {
-                                username = val.split(" ").map((str) => '${str[0].toUpperCase()}${str.substring(1)}').join(" ");
+                                username = val;
                               },
                             ),
                             SizedBox(height: 20.0),
@@ -152,7 +152,7 @@ class _RegisterState extends State<Register> {
                                   dynamic result =
                                       await _auth.registerWithEmailAndPassword(
                                           email,
-                                          username,
+                                          username.split(" ").map((str) => '${str[0].toUpperCase()}${str.substring(1)}').join(" "),
                                           countryValue.name,
                                           password);
                                   if (result == null) {
