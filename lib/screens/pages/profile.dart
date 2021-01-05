@@ -17,7 +17,6 @@ class _ProfileState extends State<Profile> {
 
     return Container(
       margin: EdgeInsets.fromLTRB(15, 10, 15, 0),
-      color: Colors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

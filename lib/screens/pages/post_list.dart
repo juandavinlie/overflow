@@ -11,8 +11,10 @@ import 'package:provider/provider.dart';
 class PostList extends StatefulWidget {
   Function loadOlderPosts;
   Function loadNewerPosts;
+  Function stopLoadingNewPosts;
+  ScrollController scrollController;
 
-  PostList({this.loadOlderPosts, this.loadNewerPosts});
+  PostList({this.loadOlderPosts, this.loadNewerPosts, this.stopLoadingNewPosts, this.scrollController});
 
   @override
   _PostListState createState() => _PostListState();
@@ -43,6 +45,7 @@ class _PostListState extends State<PostList> {
               ],
             ),
             body: ListView.builder(
+              controller: widget.scrollController,
               scrollDirection: Axis.vertical,
               itemCount: posts.length,
               itemBuilder: (context, index) {

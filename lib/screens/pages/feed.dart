@@ -17,7 +17,7 @@ class Feed extends StatefulWidget {
 }
 
 class _FeedState extends State<Feed> {
-  static int limit = 2;
+  static int limit = 5;
   Stream<List<Post>> univPosts = DatabaseService().universalPostsFromStart(limit);
 
   // load newer posts until last loaded post
@@ -38,7 +38,7 @@ class _FeedState extends State<Feed> {
   // load older posts, starting from most recent post
   void _loadOlderPosts(int timeCreated) {
     setState(() {
-      limit += 2;
+      limit += 5;
       univPosts = DatabaseService().nextUniversalPostsWithoutNew(timeCreated, limit);
     });
   }
@@ -51,18 +51,10 @@ class _FeedState extends State<Feed> {
       value: univPosts,
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: PostList(loadOlderPosts: _loadOlderPosts, loadNewerPosts: _loadNewerPosts),
+        body: PostList(loadOlderPosts: _loadOlderPosts, loadNewerPosts: _loadNewerPosts, stopLoadingNewPosts: _stopLoadingNewPosts),
         floatingActionButton: FloatingActionButton(
           elevation: 3,
           onPressed: () {
-            // showModalBottomSheet(
-            //     isScrollControlled: true,
-            //     context: context,
-            //     builder: (context) {
-            //       return StreamProvider<LocalUser>.value(
-            //           value: DatabaseService(uid: user.uid).localUser,
-            //           child: NewPost());
-            //     });
             Navigator.push(
               context,
               SlideRightRoute(
