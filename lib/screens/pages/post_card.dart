@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:overflow/models/post.dart';
@@ -5,6 +6,7 @@ import 'package:overflow/models/user.dart';
 import 'package:overflow/screens/shared/constants.dart';
 import 'package:overflow/services/database.dart';
 import 'package:provider/provider.dart';
+import 'package:reference_parser/reference_parser.dart';
 
 class PostCard extends StatefulWidget {
   final Post post;
@@ -61,7 +63,8 @@ class _PostCardState extends State<PostCard> {
                               ),
                               SizedBox(height: 5),
                               Text(
-                                widget.post.time.millisecondsSinceEpoch.toString(),
+                                widget.post.time.millisecondsSinceEpoch
+                                    .toString(),
                                 style: GoogleFonts.lato(
                                   color: Colors.grey[600],
                                   letterSpacing: 2,
@@ -84,8 +87,7 @@ class _PostCardState extends State<PostCard> {
                       Delete(
                           showDelete: widget.isDeletable,
                           post: widget.post,
-                          liked: widget.post.liked
-                      ),
+                          liked: widget.post.liked),
                     ],
                   ),
                   Column(
@@ -106,6 +108,9 @@ class _PostCardState extends State<PostCard> {
                           ),
                         ),
                       ),
+                      Verses(
+                        post: widget.post,
+                      )
                     ],
                   ),
                   SizedBox(height: 10),
@@ -121,6 +126,72 @@ class _PostCardState extends State<PostCard> {
         ),
       ),
     );
+  }
+}
+
+class Verses extends StatefulWidget {
+  final Post post;
+
+  Verses({this.post});
+
+  @override
+  _VersesState createState() => _VersesState();
+}
+
+class _VersesState extends State<Verses> {
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
+    var refs = parseAllReferences(widget.post.content);
+    // Widget getVerses(List<Reference> refs) {
+    //   List<Widget> list = new List<Widget>();
+    //   for (var i = 0; i < refs.length; i++) {
+    //     list.add(new RichText(
+    //         text: TextSpan(
+    //             style: TextStyle(color: Colors.black),
+    //             text: refs[i].toString(),
+    //             recognizer: TapGestureRecognizer()
+    //               ..onTap = () {
+    //                 print(Text('hi'));
+    //               })));
+    //   }
+    //   return new Wrap(
+    //     spacing: 10,
+    //     children: list,
+    //   );
+    // }
+
+    return refs.length == 0 || widget.post.content.contains('is ')
+        ? Container()
+        : Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Divider(),
+              Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  child: Wrap(
+                    spacing: 10,
+                    children: refs
+                        .map((verse) => new Text(verse.toString()))
+                        .toList(),
+                  )
+
+                  // Container(
+                  //   width: size.width,
+                  //   child: Text(
+                  //     refs.toString(),
+                  //     style: GoogleFonts.lato(
+                  //       fontSize: 15,
+                  //       height: 1.2,
+                  //     ),
+                  //     overflow: TextOverflow.clip,
+                  //     textAlign: TextAlign.justify,
+                  //   ),
+                  // ),
+                  )
+            ],
+          );
   }
 }
 
