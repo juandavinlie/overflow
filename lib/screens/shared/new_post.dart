@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:overflow/models/localuser.dart';
 import 'package:overflow/models/user.dart';
+import 'package:overflow/screens/shared/constants.dart';
 import 'package:overflow/services/auth.dart';
 import 'package:overflow/services/database.dart';
 import 'package:provider/provider.dart';
@@ -11,8 +12,9 @@ import 'package:google_fonts/google_fonts.dart';
 class NewPost extends StatefulWidget {
   Function loadNewerPost;
   Function stopLoadingNewPost;
+  ScrollController feedScrollController;
 
-  NewPost({this.loadNewerPost, this.stopLoadingNewPost});
+  NewPost({this.loadNewerPost, this.stopLoadingNewPost, this.feedScrollController});
 
   @override
   _NewPostState createState() => _NewPostState();
@@ -50,7 +52,7 @@ class _NewPostState extends State<NewPost> {
                         localUser.country,
                         millisecondsSinceEpoch);
                     Navigator.pop(context);
-                    widget.stopLoadingNewPost();
+                    widget.feedScrollController.animateTo(widget.feedScrollController.position.minScrollExtent, duration: Duration(milliseconds: 750), curve: Curves.easeIn);
                   } else {
                     setState(() {
                       _valid = false;

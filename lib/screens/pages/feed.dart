@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:overflow/models/post.dart';
 import 'package:overflow/models/user.dart';
-import 'package:overflow/screens/pages/post_list.dart';
+import 'package:overflow/screens/pages/universal_post_list.dart';
 import 'package:overflow/screens/shared/constants.dart';
 import 'package:overflow/services/database.dart';
 import 'package:provider/provider.dart';
@@ -17,30 +17,46 @@ class Feed extends StatefulWidget {
 }
 
 class _FeedState extends State<Feed> {
-  static int limit = 2;
+  static int limit = 10;
   Stream<List<Post>> univPosts = DatabaseService().universalPostsFromStart(limit);
+  ScrollController _feedScrollController = ScrollController();
 
   // load newer posts until last loaded post
-  void _loadNewerPosts() {
+  Future<void> _loadNewerPosts() {
+    print(lastLoadedPostTime);
     setState(() {
       univPosts = DatabaseService().universalPostsFromStartToLastLoadedPost(lastLoadedPostTime);
     });
+    return Future.delayed(Duration(milliseconds: 100));
   }
 
-  // load older posts, starting from most recent post
-  void _stopLoadingNewPosts() {
-    setState(() {
-      limit = numberOfLoadedPosts;
-      univPosts = DatabaseService().nextUniversalPostsWithoutNew(firstLoadedPostTime, numberOfLoadedPosts);
-    });
-  }
+  // // load older posts, starting from most recent post
+  // void _stopLoadingNewPosts() {
+  //   setState(() {
+  //     limit = numberOfLoadedPosts;
+  //     univPosts = DatabaseService().nextUniversalPostsWithoutNew(firstLoadedPostTime, numberOfLoadedPosts);
+  //   });
+  // }
   
   // load older posts, starting from most recent post
   void _loadOlderPosts(int timeCreated) {
     setState(() {
-      limit += 2;
+      limit += 5;
       univPosts = DatabaseService().nextUniversalPostsWithoutNew(timeCreated, limit);
     });
+  }
+
+  @override
+  void initState() {
+    _feedScrollController.addListener(() {
+      double nextView = _feedScrollController.offset;
+      if (_feedScrollController.position.maxScrollExtent ==
+          _feedScrollController.offset) {
+        _loadOlderPosts(firstLoadedPostTime);
+        _feedScrollController.animateTo(nextView + 110, duration: Duration(milliseconds: 500), curve: Curves.easeIn);
+      }
+    });
+    super.initState();
   }
 
   @override
@@ -51,24 +67,16 @@ class _FeedState extends State<Feed> {
       value: univPosts,
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: PostList(loadOlderPosts: _loadOlderPosts, loadNewerPosts: _loadNewerPosts),
+        body: UniversalPostList(loadOlderPosts: _loadOlderPosts, loadNewerPosts: _loadNewerPosts, scrollController: _feedScrollController,),
         floatingActionButton: FloatingActionButton(
           elevation: 3,
           onPressed: () {
-            // showModalBottomSheet(
-            //     isScrollControlled: true,
-            //     context: context,
-            //     builder: (context) {
-            //       return StreamProvider<LocalUser>.value(
-            //           value: DatabaseService(uid: user.uid).localUser,
-            //           child: NewPost());
-            //     });
             Navigator.push(
               context,
               SlideRightRoute(
                   page: StreamProvider<LocalUser>.value(
                       value: DatabaseService(uid: user.uid).localUser,
-                      child: NewPost(loadNewerPost: _loadNewerPosts, stopLoadingNewPost: _stopLoadingNewPosts))),
+                      child: NewPost(loadNewerPost: _loadNewerPosts, feedScrollController: _feedScrollController,))),
             );
           },
           child: Icon(Icons.add),
