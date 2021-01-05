@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:overflow/models/localuser.dart';
 import 'package:overflow/models/post.dart';
 import 'package:overflow/models/user.dart';
+import 'package:overflow/screens/pages/personal_post_list.dart';
 import 'package:overflow/screens/pages/profile.dart';
-import 'package:overflow/screens/pages/post_list.dart';
+import 'package:overflow/screens/pages/universal_post_list.dart';
+import 'package:overflow/screens/shared/constants.dart';
 import 'package:overflow/services/database.dart';
 import 'package:provider/provider.dart';
 
 class Personal extends StatefulWidget {
+
   @override
   _PersonalState createState() => _PersonalState();
 }
@@ -15,20 +18,33 @@ class Personal extends StatefulWidget {
 class _PersonalState extends State<Personal>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
-  ScrollController _scrollViewController;
+  //ScrollController _scrollViewController;
+  static int limit = 10;
+  Stream<List<Post>> individualPosts = DatabaseService().individualPostsFromStart(limit);
+  ScrollController _personalScrollController;
+
+  // load newer posts until last loaded post
+  Future<void> _loadNewerIndividualPosts() {
+    print(lastLoadedPostTime);
+    setState(() {
+      individualPosts = DatabaseService().individualPostsFromStartToLastLoadedPost(lastLoadedPostTime);
+    });
+    return Future.delayed(Duration(milliseconds: 100));
+  }
+  
+  // load older posts, starting from most recent post
+  void _loadOlderIndividualPosts(int timeCreated) {
+    setState(() {
+      limit += 5;
+      individualPosts = DatabaseService().nextIndividualPostsWithoutNew(timeCreated, limit);
+    });
+  }
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, length: 2);
-    _scrollViewController = ScrollController();
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    _scrollViewController.dispose();
-    super.dispose();
+    _tabController = TabController(vsync: this, length: 2, );
+    _personalScrollController = ScrollController();
   }
 
   @override
@@ -79,10 +95,11 @@ class _PersonalState extends State<Personal>
     return Scaffold(
       backgroundColor: Colors.white,
       body: NestedScrollView(
-        controller: _scrollViewController,
+        controller: _personalScrollController,
         headerSliverBuilder: (BuildContext context, bool boxIsScrolled) {
           return <Widget>[
             SliverAppBar(
+              toolbarHeight: 150,
               title: Profile(),
               pinned: true,
               floating: true,
@@ -107,10 +124,10 @@ class _PersonalState extends State<Personal>
           children: <Widget>[
             StreamProvider<List<Post>>.value(
                 value: DatabaseService(uid: user.uid).individualPosts,
-                child: PostList(scrollController: _scrollViewController,)),
+                child: PersonalPostList(loadNewerPosts: _loadNewerIndividualPosts, loadOlderPosts: _loadOlderIndividualPosts)),
             StreamProvider<List<Post>>.value(
                 value: DatabaseService(uid: user.uid).likes, 
-                child: PostList(scrollController: _scrollViewController,)),
+                child: PersonalPostList()),
           ],
         ),
         // Column(

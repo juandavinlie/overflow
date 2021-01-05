@@ -131,6 +131,23 @@ class DatabaseService {
     return LocalUser(uid: uid, username: username, country: country, bio: bio);
   }
 
+  // get likes stream
+
+  Stream<List<Post>> likesPostsFromStart(int limit) {
+    Stream<List<Post>> stream =  postCollection.where('liked_by', arrayContains: uid).limit(limit).snapshots().map(_postListFromQuerySnapshot);
+    return stream;
+  }
+
+  Stream<List<Post>> likesPostsFromStartToLastLoadedPost(int lastTimeCreated) {
+    Stream<List<Post>> stream =  postCollection.where('liked_by', arrayContains: uid).endAt([lastTimeCreated]).snapshots().map(_postListFromQuerySnapshot);
+    return stream;
+  }
+
+  Stream<List<Post>> nextLikesPostsWithoutNew(int timeCreated, int limit) {
+    Stream<List<Post>> stream =  postCollection.where('liked_by', arrayContains: uid).startAt([timeCreated]).limit(limit).snapshots().map(_postListFromQuerySnapshot);
+    return stream;
+  }
+
   Stream<List<Post>> get likes {
     return postCollection.where('liked_by', arrayContains: uid).snapshots().map(_postListFromQuerySnapshot);
   }
@@ -142,8 +159,8 @@ class DatabaseService {
     return stream;
   }
 
-  Stream<List<Post>> universalPostsFromStartToLastLoadedPost(int timeCreated) {
-    Stream<List<Post>> stream =  postCollection.endAt([timeCreated]).snapshots().map(_postListFromQuerySnapshot);
+  Stream<List<Post>> universalPostsFromStartToLastLoadedPost(int lastTimeCreated) {
+    Stream<List<Post>> stream =  postCollection.endAt([lastTimeCreated]).snapshots().map(_postListFromQuerySnapshot);
     return stream;
   }
 
@@ -153,6 +170,22 @@ class DatabaseService {
   }
 
   // get individual posts stream
+
+  Stream<List<Post>> individualPostsFromStart(int limit) {
+    Stream<List<Post>> stream =  userCollection.document(uid).collection('posts').limit(limit).snapshots().map(_postListFromQuerySnapshot);
+    return stream;
+  }
+
+  Stream<List<Post>> individualPostsFromStartToLastLoadedPost(int lastTimeCreated) {
+    Stream<List<Post>> stream =  userCollection.document(uid).collection('posts').endAt([lastTimeCreated]).snapshots().map(_postListFromQuerySnapshot);
+    return stream;
+  }
+
+  Stream<List<Post>> nextIndividualPostsWithoutNew(int timeCreated, int limit) {
+    Stream<List<Post>> stream =  userCollection.document(uid).collection('posts').startAt([timeCreated]).limit(limit).snapshots().map(_postListFromQuerySnapshot);
+    return stream;
+  }
+
   Stream<List<Post>> get individualPosts {
     return userCollection.document(uid).collection('posts').snapshots().map(_postListFromQuerySnapshot);
   }

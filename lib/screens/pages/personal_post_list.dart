@@ -8,54 +8,40 @@ import 'package:overflow/screens/shared/constants.dart';
 import 'package:overflow/screens/shared/loading.dart';
 import 'package:provider/provider.dart';
 
-class PostList extends StatefulWidget {
+class PersonalPostList extends StatefulWidget {
   Function loadOlderPosts;
   Function loadNewerPosts;
   Function stopLoadingNewPosts;
-  ScrollController scrollController;
 
-  PostList({this.loadOlderPosts, this.loadNewerPosts, this.stopLoadingNewPosts, this.scrollController});
+  PersonalPostList(
+      {this.loadOlderPosts,
+      this.loadNewerPosts,
+      this.stopLoadingNewPosts});
 
   @override
-  _PostListState createState() => _PostListState();
+  _PersonalPostListState createState() => _PersonalPostListState();
 }
 
-class _PostListState extends State<PostList> {
+class _PersonalPostListState extends State<PersonalPostList> {
+
   @override
   Widget build(BuildContext context) {
     final posts = Provider.of<List<Post>>(context);
     final user = Provider.of<User>(context);
     return posts == null
         ? Loading()
-        : Scaffold(
-            appBar: AppBar(
-              actions: <Widget>[
-                FlatButton.icon(
-                    onPressed: () {
-                      widget.loadOlderPosts(posts[0].time.millisecondsSinceEpoch);
-                    },
-                    icon: Icon(Icons.add),
-                    label: Text("Extend")),
-                FlatButton.icon(
-                    onPressed: () {
-                      widget.loadNewerPosts();
-                    },
-                    icon: Icon(Icons.refresh),
-                    label: Text("Refresh"))
-              ],
-            ),
-            body: ListView.builder(
-              controller: widget.scrollController,
+        : RefreshIndicator(
+            onRefresh: widget.loadNewerPosts,
+            child: ListView.builder(
               scrollDirection: Axis.vertical,
               itemCount: posts.length,
               itemBuilder: (context, index) {
                 if (index == 0) {
-                  firstLoadedPostTime = posts[index].time.millisecondsSinceEpoch;
+                  firstPersonalLoadedPostTime =
+                      posts[index].time.millisecondsSinceEpoch;
                 }
-                if (index == posts.length - 1) {
-                  lastLoadedPostTime = posts[index].time.millisecondsSinceEpoch;
-                }
-                numberOfLoadedPosts = posts.length;
+                lastPersonalLoadedPostTime = lastPersonalLoadedPostTime == null ? posts[index].time.millisecondsSinceEpoch : posts[index].time.millisecondsSinceEpoch < lastPersonalLoadedPostTime ? posts[index].time.millisecondsSinceEpoch : lastPersonalLoadedPostTime;
+                numberOfPersonalLoadedPosts = index + 1;
                 return PostCard(
                     post: posts[index],
                     isDeletable: posts[index].creator.uid == user.uid,
