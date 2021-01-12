@@ -162,34 +162,20 @@ class _VersesState extends State<Verses> {
     //   );
     // }
 
-    return refs.length == 0 || widget.post.content.contains('is ')
-        ? Container()
+    return refs.length == 0
+        ? SizedBox(width: 0,)
         : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Divider(),
-              Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: Wrap(
-                    spacing: 10,
-                    children: refs
-                        .map((verse) => new Text(verse.toString()))
-                        .toList(),
-                  )
-
-                  // Container(
-                  //   width: size.width,
-                  //   child: Text(
-                  //     refs.toString(),
-                  //     style: GoogleFonts.lato(
-                  //       fontSize: 15,
-                  //       height: 1.2,
-                  //     ),
-                  //     overflow: TextOverflow.clip,
-                  //     textAlign: TextAlign.justify,
-                  //   ),
-                  // ),
-                  )
+              Row(
+                children: refs
+                    .map((verse) =>
+                        verse.referenceType == ReferenceType.BOOK
+                            ? SizedBox(width: 0)
+                            : Text(verse.toString()))
+                    .toList(),
+              )
             ],
           );
   }

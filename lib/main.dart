@@ -6,6 +6,7 @@ import 'package:overflow/screens/wrapper.dart';
 import 'package:overflow/services/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:overflow/screens/pages/post_card.dart';
+import 'package:overflow/screens/pages/post_details.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,7 +22,8 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => Wrapper(),
-          '/editprofile': (context) => EditProfile()
+          '/editprofile': (context) => EditProfile(),
+          '/postdetails': (context) => PostDetail(),
         },
       ),
     );
