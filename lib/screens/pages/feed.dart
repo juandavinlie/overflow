@@ -6,6 +6,7 @@ import 'package:overflow/models/post.dart';
 import 'package:overflow/models/user.dart';
 import 'package:overflow/screens/pages/universal_post_list.dart';
 import 'package:overflow/screens/shared/constants.dart';
+import 'package:overflow/services/auth.dart';
 import 'package:overflow/services/database.dart';
 import 'package:provider/provider.dart';
 import 'package:overflow/models/localuser.dart';
@@ -64,7 +65,7 @@ class _FeedState extends State<Feed> {
     final user = Provider.of<User>(context);
 
     return StreamProvider<List<Post>>.value(
-      value: univPosts,
+      value: DatabaseService(uid: user.uid).universalPosts,
       child: Scaffold(
         backgroundColor: Colors.white,
         body: UniversalPostList(loadOlderPosts: _loadOlderPosts, loadNewerPosts: _loadNewerPosts, scrollController: _feedScrollController,),

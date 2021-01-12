@@ -111,6 +111,7 @@ class DatabaseService {
             liked: doc['liked_by'].contains(uid)
           ); 
         } catch(e) {
+          //print(e);
           return Post(
             content: doc['content'], 
             creator: User(username: doc['creator_username'], uid: doc['creator_uid'], country: doc['creator_country']),
@@ -134,7 +135,7 @@ class DatabaseService {
   // get likes stream
 
   Stream<List<Post>> likesPostsFromStart(int limit) {
-    Stream<List<Post>> stream =  postCollection.where('liked_by', arrayContains: uid).limit(limit).snapshots().map(_postListFromQuerySnapshot);
+    Stream<List<Post>> stream =  postCollection.where('liked_by', arrayContains: uid).limit(limit).snapshots(includeMetadataChanges: true).map(_postListFromQuerySnapshot);
     return stream;
   }
 
@@ -167,6 +168,10 @@ class DatabaseService {
   Stream<List<Post>> nextUniversalPostsWithoutNew(int timeCreated, int limit) {
     Stream<List<Post>> stream =  postCollection.startAt([timeCreated]).limit(limit).snapshots().map(_postListFromQuerySnapshot);
     return stream;
+  }
+
+  Stream<List<Post>> get universalPosts {
+    return postCollection.snapshots().map(_postListFromQuerySnapshot);
   }
 
   // get individual posts stream

@@ -127,7 +127,7 @@ class _PersonalState extends State<Personal>
                 child: PersonalPostList(loadNewerPosts: _loadNewerIndividualPosts, loadOlderPosts: _loadOlderIndividualPosts)),
             StreamProvider<List<Post>>.value(
                 value: DatabaseService(uid: user.uid).likes, 
-                child: PersonalPostList()),
+                child: PersonalPostList(loadNewerPosts: _loadNewerIndividualPosts, loadOlderPosts: _loadOlderIndividualPosts)),
           ],
         ),
         // Column(

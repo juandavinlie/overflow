@@ -8,4 +8,8 @@ class Post {
   bool liked;
 
   Post({ this.content, this.creator, this.postId, this.time, this.liked});
+
+  void toggleLiked() {
+    liked = !liked;
+  }
 }
