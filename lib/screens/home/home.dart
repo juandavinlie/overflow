@@ -32,24 +32,11 @@ class _HomeState extends State<Home> {
           appBar: AppBar(
             backgroundColor: Colors.blue[500],
             elevation: 0,
+            centerTitle: true,
             title: Text("Overflow", style: GoogleFonts.lato(
               fontWeight: FontWeight.bold,
-              fontSize: 30
-              ),
-            ),
-          actions: [FlatButton.icon(onPressed: () async {
-            int millisecondsSinceEpoch =
-                        DateTime.now().millisecondsSinceEpoch;
-                    // print(localTime.toString());
-                    // DateTime utcTime = DateTime.utc(localTime.year, localTime.month, localTime.day, localTime.hour, localTime.minute, localTime.second, localTime.millisecond, localTime.microsecond);
-                    // print(utcTime.toString());
-                    //widget.loadNewerPost();
-                    await DatabaseService(uid: "dummy").updatePost(
-                        "baru",
-                        "dummy",
-                        "dummy",
-                        millisecondsSinceEpoch);
-          }, icon: Icon(Icons.add), label: Text("Add"))],
+              fontSize: 30,
+            ),),
           ),
           drawer: DrawerCustom(),
           body: _pages[_selectedIndex],

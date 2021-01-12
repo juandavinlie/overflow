@@ -43,6 +43,7 @@ dependencies:
   google_fonts: ^1.1.1
   intl: ^0.16.1
   time_machine:
+  reference_parser: ^1.2.2
 
 dev_dependencies:
   flutter_test:
