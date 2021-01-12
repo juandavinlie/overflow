@@ -35,7 +35,21 @@ class _HomeState extends State<Home> {
             title: Text("Overflow", style: GoogleFonts.lato(
               fontWeight: FontWeight.bold,
               fontSize: 30
-            ),),
+              ),
+            ),
+          actions: [FlatButton.icon(onPressed: () async {
+            int millisecondsSinceEpoch =
+                        DateTime.now().millisecondsSinceEpoch;
+                    // print(localTime.toString());
+                    // DateTime utcTime = DateTime.utc(localTime.year, localTime.month, localTime.day, localTime.hour, localTime.minute, localTime.second, localTime.millisecond, localTime.microsecond);
+                    // print(utcTime.toString());
+                    //widget.loadNewerPost();
+                    await DatabaseService(uid: "dummy").updatePost(
+                        "baru",
+                        "dummy",
+                        "dummy",
+                        millisecondsSinceEpoch);
+          }, icon: Icon(Icons.add), label: Text("Add"))],
           ),
           drawer: DrawerCustom(),
           body: _pages[_selectedIndex],

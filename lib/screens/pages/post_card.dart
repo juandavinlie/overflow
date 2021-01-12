@@ -21,6 +21,8 @@ class _PostCardState extends State<PostCard> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final user = Provider.of<User>(context);
+    //print("likeness " + widget.post.liked.toString());
     return InkWell(
       onTap: widget.press,
       child: Container(
@@ -61,7 +63,8 @@ class _PostCardState extends State<PostCard> {
                               ),
                               SizedBox(height: 5),
                               Text(
-                                widget.post.time.millisecondsSinceEpoch.toString(),
+                                widget.post.time.millisecondsSinceEpoch
+                                    .toString(),
                                 style: GoogleFonts.lato(
                                   color: Colors.grey[600],
                                   letterSpacing: 2,
@@ -81,13 +84,27 @@ class _PostCardState extends State<PostCard> {
                         ],
                       ),
                       Expanded(child: SizedBox()),
-                      Delete(
-                          showDelete: widget.isDeletable,
-                          post: widget.post,
-                          liked: widget.post.liked
-                      ),
-                    ],
-                  ),
+                      widget.isDeletable 
+                      ? Delete(
+                          post: widget.post) 
+                      : IconButton(
+                          highlightColor: Colors.transparent,
+                          splashColor: Colors.transparent,
+                          onPressed: () async {
+                            if (!widget.post.liked) {
+                              await DatabaseService(uid: widget.post.creator.uid)
+                                  .addLikedBy(widget.post.postId, user.uid);
+                            } else {
+                              await DatabaseService(uid: widget.post.creator.uid)
+                                  .removeLikedBy(widget.post.postId, user.uid);
+                            }
+                          },
+                          icon: Icon(Icons.favorite),
+                          iconSize: 20,
+                          alignment: Alignment.topRight,
+                          color: widget.post.liked ? Colors.red : Colors.grey[700]
+                        )
+                    ]),
                   Column(
                     children: [
                       SizedBox(height: 15),
@@ -125,11 +142,9 @@ class _PostCardState extends State<PostCard> {
 }
 
 class Delete extends StatefulWidget {
-  bool showDelete;
   Post post;
-  bool liked;
 
-  Delete({this.showDelete, this.post, this.liked});
+  Delete({this.post});
 
   @override
   _DeleteState createState() => _DeleteState();
@@ -138,40 +153,18 @@ class Delete extends StatefulWidget {
 class _DeleteState extends State<Delete> {
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<User>(context);
 
-    return widget.showDelete
-        ? IconButton(
-            highlightColor: Colors.transparent,
-            splashColor: Colors.transparent,
-            onPressed: () async {
-              await DatabaseService(uid: widget.post.creator.uid)
-                  .deletePost(widget.post.postId);
-            },
-            icon: Icon(Icons.delete),
-            iconSize: 20,
-            alignment: Alignment.topRight,
-            color: Colors.grey[700],
-          )
-        : IconButton(
-            highlightColor: Colors.transparent,
-            splashColor: Colors.transparent,
-            onPressed: () async {
-              setState(() {
-                widget.liked = !widget.liked;
-              });
-              if (widget.liked) {
-                await DatabaseService(uid: widget.post.creator.uid)
-                    .addLikedBy(widget.post.postId, user.uid);
-              } else {
-                await DatabaseService(uid: widget.post.creator.uid)
-                    .removeLikedBy(widget.post.postId, user.uid);
-              }
-            },
-            icon: Icon(Icons.favorite),
-            iconSize: 20,
-            alignment: Alignment.topRight,
-            color: widget.liked ? Colors.red : Colors.grey[700],
-          );
+    return IconButton(
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      onPressed: () async {
+        await DatabaseService(uid: widget.post.creator.uid)
+            .deletePost(widget.post.postId);
+      },
+      icon: Icon(Icons.delete),
+      iconSize: 20,
+      alignment: Alignment.topRight,
+      color: Colors.grey[700],
+    );
   }
 }

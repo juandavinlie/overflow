@@ -6,6 +6,7 @@ import 'package:overflow/screens/pages/post_card.dart';
 import 'package:overflow/screens/pages/post_details.dart';
 import 'package:overflow/screens/shared/constants.dart';
 import 'package:overflow/screens/shared/loading.dart';
+import 'package:overflow/services/database.dart';
 import 'package:provider/provider.dart';
 
 class UniversalPostList extends StatefulWidget {
@@ -33,13 +34,14 @@ class _UniversalPostListState extends State<UniversalPostList> {
     return posts == null
         ? Loading()
         : RefreshIndicator(
-            onRefresh: widget.loadNewerPosts,
+            onRefresh: () {
+              return Future.delayed(Duration(milliseconds: 100));
+            },
             child: ListView.builder(
               controller: widget.scrollController,
               scrollDirection: Axis.vertical,
               itemCount: posts.length,
               itemBuilder: (context, index) {
-                //print(index);
                 if (index == 0) {
                   firstLoadedPostTime =
                       posts[index].time.millisecondsSinceEpoch;

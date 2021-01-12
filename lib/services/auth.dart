@@ -11,6 +11,11 @@ class AuthService {
     return user != null ? User(uid: user.uid) : null;
   }
 
+  Future getUid() async {
+    FirebaseUser user = await _auth.currentUser();
+    return user.uid;
+  }
+
   // user stream
   Stream<User> get user {
     return _auth.onAuthStateChanged

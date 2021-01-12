@@ -76,14 +76,14 @@ class _NewPostState extends State<NewPost> {
                     // print(localTime.toString());
                     // DateTime utcTime = DateTime.utc(localTime.year, localTime.month, localTime.day, localTime.hour, localTime.minute, localTime.second, localTime.millisecond, localTime.microsecond);
                     // print(utcTime.toString());
-                    widget.loadNewerPost();
+                    //widget.loadNewerPost();
                     await DatabaseService(uid: user.uid).updatePost(
                         enjoyment,
                         localUser.username,
                         localUser.country,
                         millisecondsSinceEpoch);
                     Navigator.pop(context);
-                    widget.feedScrollController.animateTo(widget.feedScrollController.position.minScrollExtent, duration: Duration(milliseconds: 750), curve: Curves.easeIn);
+                    //widget.feedScrollController.animateTo(widget.feedScrollController.position.minScrollExtent, duration: Duration(milliseconds: 750), curve: Curves.easeIn);
                   } else {
                     setState(() {
                       _valid = false;
