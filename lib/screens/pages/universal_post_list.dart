@@ -8,6 +8,7 @@ import 'package:overflow/screens/shared/constants.dart';
 import 'package:overflow/screens/shared/loading.dart';
 import 'package:overflow/services/database.dart';
 import 'package:provider/provider.dart';
+import 'package:reference_parser/reference_parser.dart';
 
 class UniversalPostList extends StatefulWidget {
   Function loadOlderPosts;
@@ -26,7 +27,6 @@ class UniversalPostList extends StatefulWidget {
 }
 
 class _UniversalPostListState extends State<UniversalPostList> {
-
   @override
   Widget build(BuildContext context) {
     final posts = Provider.of<List<Post>>(context);
@@ -46,18 +46,24 @@ class _UniversalPostListState extends State<UniversalPostList> {
                   firstLoadedPostTime =
                       posts[index].time.millisecondsSinceEpoch;
                 }
-                lastLoadedPostTime = lastLoadedPostTime == null ? posts[index].time.millisecondsSinceEpoch : posts[index].time.millisecondsSinceEpoch < lastLoadedPostTime ? posts[index].time.millisecondsSinceEpoch : lastLoadedPostTime;
+                lastLoadedPostTime = lastLoadedPostTime == null
+                    ? posts[index].time.millisecondsSinceEpoch
+                    : posts[index].time.millisecondsSinceEpoch <
+                            lastLoadedPostTime
+                        ? posts[index].time.millisecondsSinceEpoch
+                        : lastLoadedPostTime;
                 numberOfLoadedPosts = index + 1;
                 return PostCard(
-                    post: posts[index],
-                    isDeletable: posts[index].creator.uid == user.uid,
-                    press: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  PostDetail(post: posts[index])));
-                    });
+                  post: posts[index],
+                  isDeletable: posts[index].creator.uid == user.uid,
+                  press: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                PostDetail(post: posts[index])));
+                  },
+                );
               },
             ),
           );

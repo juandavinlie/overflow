@@ -51,7 +51,8 @@ class _PersonalPostListState extends State<PersonalPostList> {
                           MaterialPageRoute(
                               builder: (context) =>
                                   PostDetail(post: posts[index])));
-                    });
+                    },
+                    );
               },
             ),
           );

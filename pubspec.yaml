@@ -44,6 +44,8 @@ dependencies:
   intl: ^0.16.1
   time_machine:
   reference_parser: ^1.2.2
+  bible: ^0.7.1
+
 
 dev_dependencies:
   flutter_test:
